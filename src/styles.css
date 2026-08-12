@@ -114,14 +114,12 @@
     color: var(--signal-ink);
   }
 
-  @media (min-width: 1024px) {
-    body.has-fine-pointer {
-      cursor: none;
-    }
-    body.has-fine-pointer a,
-    body.has-fine-pointer button {
-      cursor: none;
-    }
+  body.has-fine-pointer {
+    cursor: none;
+  }
+  body.has-fine-pointer a,
+  body.has-fine-pointer button {
+    cursor: none;
   }
 }
 
