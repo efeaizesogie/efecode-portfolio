@@ -114,13 +114,24 @@ export function Stack() {
         </div>
       </div>
 
-      <div className="mt-10 overflow-hidden border-t border-rule py-5">
+      <div className="mt-10 overflow-hidden border-t border-rule py-5 flex">
         <div
-          className="marquee-track flex w-max gap-10 whitespace-nowrap"
+          className="marquee-track flex w-max shrink-0 whitespace-nowrap"
           style={{ ["--marquee-duration" as string]: "48s" }}
         >
-          {[...marqueeSkills, ...marqueeSkills].map((s, i) => (
-            <span key={`${s}-${i}`} className="type-label text-ink-soft">
+          {marqueeSkills.map((s, i) => (
+            <span key={`${s}-${i}`} className="type-label text-ink-soft pr-10">
+              {s} <span className="text-signal">✦</span>
+            </span>
+          ))}
+        </div>
+        <div
+          className="marquee-track flex w-max shrink-0 whitespace-nowrap"
+          style={{ ["--marquee-duration" as string]: "48s" }}
+          aria-hidden="true"
+        >
+          {marqueeSkills.map((s, i) => (
+            <span key={`${s}-${i}-dup`} className="type-label text-ink-soft pr-10">
               {s} <span className="text-signal">✦</span>
             </span>
           ))}

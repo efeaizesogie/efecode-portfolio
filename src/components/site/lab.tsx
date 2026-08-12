@@ -41,7 +41,11 @@ export function Lab() {
             <li key={p.title}>
               <div
                 className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-4 border-t border-rule py-6 last:border-b md:grid-cols-[3rem_1.4fr_1fr_7rem] md:py-7"
-                onMouseEnter={() => setActive(i)}
+                onMouseEnter={(e) => {
+                  x.set(e.clientX);
+                  y.set(e.clientY);
+                  setActive(i);
+                }}
                 onMouseLeave={() => setActive(null)}
               >
                 <span className="type-label text-ink-soft">
@@ -83,8 +87,8 @@ export function Lab() {
       <AnimatePresence>
         {active !== null && !reduced ? (
           <motion.div
-            className="pointer-events-none fixed top-0 left-0 z-[60] hidden aspect-[16/10] w-[26rem] overflow-hidden lg:block"
-            style={{ x: sx, y: sy, translateX: "-50%", translateY: "-50%" }}
+            className="pointer-events-none fixed top-0 left-0 z-[60] hidden aspect-[16/10] w-[26rem] overflow-hidden lg:block -mt-[8.125rem] -ml-[13rem]"
+            style={{ x: sx, y: sy }}
             initial={{ opacity: 0, scale: 0.92, rotate: -2 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
             exit={{ opacity: 0, scale: 0.94 }}
