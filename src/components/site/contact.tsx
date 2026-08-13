@@ -76,7 +76,7 @@ export function Contact() {
         <p className="type-label text-void-foreground/45">
           © {new Date().getFullYear()} Efe Aizesogie
         </p>
-        <p className="type-label text-void-foreground/45">Built in React · Lagos, Nigeria</p>
+        <p className="type-label text-void-foreground/45">Built in React · Edo, Nigeria</p>
         <button
           onClick={() =>
             document.getElementById("index")?.scrollIntoView({ behavior: "smooth" })
