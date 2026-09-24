@@ -69,8 +69,9 @@ export function Nav() {
               className="type-label flex items-center gap-2 text-ink"
               aria-label="Back to top"
             >
-              <span className="inline-block h-2 w-2 rounded-full bg-signal" />
-              EFECODE
+              {/* <span className="inline-block h-2 w-2 rounded-full bg-signal" />
+              EFECODE */}
+              <img src="/favicon.ico" alt="logo" />
             </button>
           </Magnetic>
 

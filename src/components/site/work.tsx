@@ -26,18 +26,13 @@ function ProjectSlab({ project, i }: { project: Project; i: number }) {
   return (
     <article
       ref={ref}
-      className="border-t border-void-rule py-16 first:border-t-0 md:py-28"
+      className="border-t border-void-rule py-4 first:border-t-0  md:py-8"
       aria-labelledby={`p-${project.slug}`}
     >
       <div className="shell">
-        <div className="flex items-baseline justify-between gap-6">
-          <span className="type-label text-signal">{project.index}</span>
-          <span className="type-label text-void-foreground/65">
-            {project.discipline} · {project.year}
-          </span>
-        </div>
+       
 
-        <h3 id={`p-${project.slug}`} className="type-display mt-5 md:mt-7">
+        <h3 id={`p-${project.slug}`} className="type-display mt-5">
           <RevealText text={project.title} stagger={0.05} />
         </h3>
 
