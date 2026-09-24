@@ -34,9 +34,7 @@ export function Hero() {
       className="grain relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-28 pb-8"
     >
       <motion.div style={{ y, opacity: fade }} className="shell">
-        
-
-        <h1 className="mt-8 md:mt-12">
+        <h1 className="mt-2 md:mt-4">
           <span className="sr-only">
             Efe Aizesogie — EFECODE, frontend engineer building fast, considered interfaces.
           </span>
@@ -68,7 +66,6 @@ export function Hero() {
                   }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 >
-
                   {r}
                 </motion.span>
               ))}
@@ -76,12 +73,12 @@ export function Hero() {
           </div>
 
           <div className="md:col-span-5 md:col-start-8">
-            <p className="type-prose max-w-[46ch] text-ink-soft">
-              Four years building and scaling applications for companies and individuals —
-              fintech evaluation platforms, healthcare portals, payroll systems. I care about
-              the millisecond between intent and response.
+            <p className="type-prose max-w-[46ch] text-ink/85">
+              Four years building and scaling web applications for companies and individuals; fintech platforms,
+              healthcare portals, and payroll systems. Focused on the millisecond between
+              intent and response.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic strength={0.28}>
                 <a
                   href="#work"
@@ -111,7 +108,6 @@ export function Hero() {
                 </a>
               </Magnetic>
             </div>
-
           </div>
         </div>
       </motion.div>
@@ -120,7 +116,7 @@ export function Hero() {
         style={{ y: markY }}
         className="shell mt-12 flex items-end justify-between"
       >
-        <span className="type-label text-ink-soft">Scroll · 07 chapters</span>
+        <span className="type-label text-ink-soft"></span>
         <motion.span
           className="type-label text-ink-soft"
           animate={reduced ? {} : { y: [0, 6, 0] }}
