@@ -34,12 +34,7 @@ export function Hero() {
       className="grain relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-28 pb-8"
     >
       <motion.div style={{ y, opacity: fade }} className="shell">
-        <div className="type-label flex flex-wrap items-center gap-x-6 gap-y-2 text-ink-soft">
-          <span className="text-signal">Efe Aizesogie</span>
-          <span>Frontend Developer</span>
-          <span>Est. 4 Years</span>
-          <span className="hidden sm:inline">Edo, Nigeria → Remote</span>
-        </div>
+        
 
         <h1 className="mt-8 md:mt-12">
           <span className="sr-only">

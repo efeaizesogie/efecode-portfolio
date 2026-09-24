@@ -133,7 +133,7 @@ export function Work() {
             <RevealText text="Selected Work" stagger={0.05} />
           </h2>
           <p className="type-label text-void-foreground/45">
-            Five projects · 2024—2025
+            Six projects · 2024—2025
           </p>
         </div>
       </div>

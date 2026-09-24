@@ -70,8 +70,26 @@ export const featuredProjects: Project[] = [
     repo: "https://github.com/efeaizesogie/clinq-p",
   },
   {
-    slug: "simple-payroll",
+    slug: "honatrix",
     index: "04",
+    title: "Honatrix",
+    year: "2025",
+    role: "Frontend Developer",
+    discipline: "Civil Engineering / Real Estate",
+    stack: ["HTML5", "CSS3", "JavaScript", "jQuery", "Responsive Design"],
+    problem:
+      "Engineering and construction firms often rely on rigid, legacy web templates that fail to showcase the true physical scale of their builds or provide clear inquiry channels for prospective clients and investors.",
+    solution:
+      "A responsive corporate web presence featuring dynamic project showcases, dedicated commercial development pages, modular team profiles, and structured quote-request workflows tailored for high-trust engagements.",
+    outcome:
+      "A polished, mobile-optimized digital platform representing Honatrix Nig. Ltd.'s landmark infrastructure and commercial developments with seamless navigation and client lead capture.",
+    image: "/work/honatrix.png",
+    live: "https://honatrix.com/",
+    repo: "https://github.com/efeaizesogie/Honatrix",
+  },
+  {
+    slug: "simple-payroll",
+    index: "05",
     title: "Simple Payroll",
     year: "2024",
     role: "Frontend Developer",
@@ -89,7 +107,7 @@ export const featuredProjects: Project[] = [
   },
   {
     slug: "veescents",
-    index: "05",
+    index: "06",
     title: "Veescents",
     year: "2024",
     role: "Frontend Developer",

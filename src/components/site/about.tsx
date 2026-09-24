@@ -63,7 +63,7 @@ export function About() {
         <div className="mt-16 grid grid-cols-2 gap-px border border-rule bg-rule md:mt-24 md:grid-cols-4">
           {[
             ["04", "Years shipping"],
-            ["13+", "Projects delivered"],
+            ["14+", "Projects delivered"],
             ["06", "Teams collaborated"],
             ["100%", "Remote fluent"],
           ].map(([n, l], i) => (
