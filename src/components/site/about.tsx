@@ -14,9 +14,8 @@ export function About() {
   return (
     <section id="about" className="grain py-20 md:py-32">
       <div className="shell" ref={ref}>
-        <p className="type-label text-signal">About</p>
 
-        <div className="mt-8 grid gap-10 md:grid-cols-12 md:gap-x-10">
+        <div className="mt-8 grid gap-12 md:grid-cols-12 md:gap-x-12">
           <div className="md:col-span-7">
             <h2 className="type-display max-w-[16ch]">
               <RevealText
@@ -43,7 +42,7 @@ export function About() {
             </Rise>
             <Rise delay={0.14}>
               <p className="type-prose text-ink-soft">
-                Off the keyboard, cartography. I think a healthy work–life balance is what keeps
+                Off the keyboard, cartography, and spatial exploration, I think a healthy work–life balance is what keeps
                 the work sharp, and I'm always looking for the next thing I don't know yet.
               </p>
             </Rise>
@@ -68,9 +67,9 @@ export function About() {
             ["100%", "Remote fluent"],
           ].map(([n, l], i) => (
             <Rise key={l} delay={i * 0.06}>
-              <div className="h-full bg-paper px-5 py-8 md:px-7 md:py-11">
+              <div className="h-full bg-paper px-5 py-8 md:px-7 md:py-12">
                 <p className="type-display leading-none">{n}</p>
-                <p className="type-label mt-4 text-ink-soft">{l}</p>
+                <p className="type-label mt-4 text-ink/75">{l}</p>
               </div>
             </Rise>
           ))}

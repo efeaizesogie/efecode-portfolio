@@ -17,7 +17,7 @@ export type Project = {
 export const featuredProjects: Project[] = [
   {
     slug: "honatrix",
-    index: "04",
+    index: "01",
     title: "Honatrix",
     year: "2025",
     role: "Frontend Developer",
@@ -35,7 +35,7 @@ export const featuredProjects: Project[] = [
   },
   {
     slug: "traders-launch",
-    index: "01",
+    index: "02",
     title: "Traders Launch Reimagined",
     year: "2025",
     role: "Frontend Developer",
@@ -73,7 +73,7 @@ export const featuredProjects: Project[] = [
 
   {
     slug: "simple-payroll",
-    index: "05",
+    index: "04",
     title: "Simple Payroll",
     year: "2024",
     role: "Frontend Developer",
@@ -91,7 +91,7 @@ export const featuredProjects: Project[] = [
   },
   {
     slug: "fundedfun",
-    index: "02",
+    index: "05",
     title: "FundedFun",
     year: "2025",
     role: "Frontend Developer",
