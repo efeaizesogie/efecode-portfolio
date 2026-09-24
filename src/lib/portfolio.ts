@@ -16,60 +16,6 @@ export type Project = {
 
 export const featuredProjects: Project[] = [
   {
-    slug: "traders-launch",
-    index: "01",
-    title: "Traders Launch Reimagined",
-    year: "2025",
-    role: "Frontend Developer",
-    discipline: "Fintech / Prop Trading",
-    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
-    problem:
-      "Futures evaluation platforms bury their rules in fine print, so traders can never tell what a challenge actually costs them.",
-    solution:
-      "A rebuilt evaluation flow where pricing, payout cadence and risk parameters are first-class interface objects, wired through typed routing and a component system tuned for dense financial data.",
-    outcome:
-      "One-time fee evaluations, daily payouts, no payout caps and up to 80% profit split, all legible at a glance.",
-    image: "/work/traderslaunch.png",
-    live: "https://traders-launch-reimagined.vercel.app/",
-    repo: "https://github.com/efeaizesogie/Traders-Launch-Reimagined",
-  },
-  {
-    slug: "fundedfun",
-    index: "02",
-    title: "FundedFun",
-    year: "2025",
-    role: "Frontend Developer",
-    discipline: "Fintech / Prop Trading",
-    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
-    problem:
-      "Low-cost trading challenges attract first-time traders who are then overwhelmed by charting tools and opaque rule sets.",
-    solution:
-      "An onboarding-forward evaluation platform with instant challenge creation, plain-language rules and embedded TradingView charting that stays performant under live data.",
-    outcome:
-      "Instant evaluations, fair trading rules and clear risk parameters in one uninterrupted surface.",
-    image: "/work/fundedfun.png",
-    live: "https://funded-fun-elevated.vercel.app/",
-    repo: "https://github.com/efeaizesogie/FundedFun-Elevated",
-  },
-  {
-    slug: "clinq",
-    index: "03",
-    title: "Clinq",
-    year: "2025",
-    role: "Frontend Developer",
-    discipline: "Healthcare / Platform",
-    stack: ["React", "Next.js", "TypeScript", "TailwindCSS", "Supabase", "GSAP"],
-    problem:
-      "Clinic software is built for administrators. Patients get the leftovers: static forms, stale records, phone calls.",
-    solution:
-      "A patient-centric portal with real-time specialist booking and record synchronisation, fronted by a landing experience choreographed in GSAP so the marketing site feels like the product.",
-    outcome:
-      "Booking, records and clinic management unified into a single modern patient surface.",
-    image: "/work/clinq.png",
-    live: "https://clinq-brown.vercel.app/",
-    repo: "https://github.com/efeaizesogie/clinq-p",
-  },
-  {
     slug: "honatrix",
     index: "04",
     title: "Honatrix",
@@ -88,6 +34,44 @@ export const featuredProjects: Project[] = [
     repo: "https://github.com/efeaizesogie/Honatrix",
   },
   {
+    slug: "traders-launch",
+    index: "01",
+    title: "Traders Launch Reimagined",
+    year: "2025",
+    role: "Frontend Developer",
+    discipline: "Fintech / Prop Trading",
+    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
+    problem:
+      "Futures evaluation platforms bury their rules in fine print, so traders can never tell what a challenge actually costs them.",
+    solution:
+      "A rebuilt evaluation flow where pricing, payout cadence and risk parameters are first-class interface objects, wired through typed routing and a component system tuned for dense financial data.",
+    outcome:
+      "One-time fee evaluations, daily payouts, no payout caps and up to 80% profit split, all legible at a glance.",
+    image: "/work/traderslaunch.png",
+    live: "https://traders-launch-reimagined.vercel.app/",
+    repo: "https://github.com/efeaizesogie/Traders-Launch-Reimagined",
+  },
+
+  {
+    slug: "clinq",
+    index: "03",
+    title: "Clinq",
+    year: "2025",
+    role: "Frontend Developer",
+    discipline: "Healthcare / Platform",
+    stack: ["React", "Next.js", "TypeScript", "TailwindCSS", "Supabase", "GSAP"],
+    problem:
+      "Clinic software is built for administrators. Patients get the leftovers: static forms, stale records, phone calls.",
+    solution:
+      "A patient-centric portal with real-time specialist booking and record synchronisation, fronted by a landing experience choreographed in GSAP so the marketing site feels like the product.",
+    outcome:
+      "Booking, records and clinic management unified into a single modern patient surface.",
+    image: "/work/clinq.png",
+    live: "https://clinq-brown.vercel.app/",
+    repo: "https://github.com/efeaizesogie/clinq-p",
+  },
+
+  {
     slug: "simple-payroll",
     index: "05",
     title: "Simple Payroll",
@@ -100,10 +84,28 @@ export const featuredProjects: Project[] = [
     solution:
       "A comprehensive payroll service built as a focused React application — salary runs, deductions and employee records reduced to a handful of clear, repeatable screens.",
     outcome:
-      "A complete payroll workflow delivered end to end as the front-end developer.",
+      "A complete payroll workflow delivered end to end with streamlined employee records and automated salary runs.",
     image: "/work/simple-payroll.png",
     live: "https://simple-payroll.vercel.app/",
     repo: "https://github.com/efeaizesogie/simple-payroll",
+  },
+  {
+    slug: "fundedfun",
+    index: "02",
+    title: "FundedFun",
+    year: "2025",
+    role: "Frontend Developer",
+    discipline: "Fintech / Prop Trading",
+    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
+    problem:
+      "Low-cost trading challenges attract first-time traders who are then overwhelmed by charting tools and opaque rule sets.",
+    solution:
+      "An onboarding-forward evaluation platform with instant challenge creation, plain-language rules and embedded TradingView charting that stays performant under live data.",
+    outcome:
+      "Instant evaluations, fair trading rules and clear risk parameters in one uninterrupted surface.",
+    image: "/work/fundedfun.png",
+    live: "https://funded-fun-elevated.vercel.app/",
+    repo: "https://github.com/efeaizesogie/FundedFun-Elevated",
   },
   {
     slug: "veescents",

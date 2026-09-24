@@ -26,13 +26,13 @@ function ProjectSlab({ project, i }: { project: Project; i: number }) {
   return (
     <article
       ref={ref}
-      className="border-t border-void-rule py-14 first:border-t-0 md:py-24"
+      className="border-t border-void-rule py-16 first:border-t-0 md:py-28"
       aria-labelledby={`p-${project.slug}`}
     >
       <div className="shell">
         <div className="flex items-baseline justify-between gap-6">
           <span className="type-label text-signal">{project.index}</span>
-          <span className="type-label text-void-foreground/45">
+          <span className="type-label text-void-foreground/65">
             {project.discipline} · {project.year}
           </span>
         </div>
@@ -56,12 +56,11 @@ function ProjectSlab({ project, i }: { project: Project; i: number }) {
             target="_blank"
             rel="noreferrer"
             data-cursor="Code"
-            className="type-label link-underline text-void-foreground/70 hover:text-void-foreground"
+            className="type-label link-underline text-void-foreground/80 hover:text-void-foreground"
           >
             Source ↗
           </a>
         </div>
-
 
         <motion.figure
           style={{ clipPath: clip }}
@@ -79,41 +78,34 @@ function ProjectSlab({ project, i }: { project: Project; i: number }) {
           </a>
         </motion.figure>
 
-
         <div
-          className={`mt-8 grid gap-x-10 gap-y-8 md:mt-12 md:grid-cols-12 ${
+          className={`mt-10 grid gap-x-12 gap-y-10 md:mt-14 md:grid-cols-12 ${
             flip ? "md:[direction:rtl]" : ""
           }`}
         >
           <div className="md:col-span-3 md:[direction:ltr]">
-            <dl className="space-y-6">
-              <div>
-                <dt className="type-label text-void-foreground/45">Role</dt>
-                <dd className="type-meta mt-2">{project.role}</dd>
-              </div>
-              <div>
-                <dt className="type-label text-void-foreground/45">Stack</dt>
-                <dd className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                  {project.stack.map((s) => (
-                    <span key={s} className="type-meta text-void-foreground/75">
-                      {s}
-                    </span>
-                  ))}
-                </dd>
-              </div>
+            <dl className="space-y-4">
+              <dt className="type-label text-void-foreground/65">Stack</dt>
+              <dd className="flex flex-wrap gap-x-3 gap-y-1.5">
+                {project.stack.map((s) => (
+                  <span key={s} className="type-meta text-void-foreground/85">
+                    {s}
+                  </span>
+                ))}
+              </dd>
             </dl>
           </div>
 
-          <div className="space-y-7 md:col-span-8 md:col-start-5 md:[direction:ltr]">
+          <div className="space-y-8 md:col-span-8 md:col-start-5 md:[direction:ltr]">
             {[
               ["Problem", project.problem],
               ["Solution", project.solution],
               ["Outcome", project.outcome],
             ].map(([label, body], idx) => (
               <Rise key={label} delay={idx * 0.06}>
-                <div className="grid gap-2 border-t border-void-rule pt-4 md:grid-cols-[7rem_1fr] md:gap-6">
-                  <p className="type-label text-void-foreground/45">{label}</p>
-                  <p className="type-prose max-w-[62ch] text-void-foreground/85">{body}</p>
+                <div className="grid gap-2 border-t border-void-rule pt-5 md:grid-cols-[7rem_1fr] md:gap-8">
+                  <p className="type-label text-void-foreground/65">{label}</p>
+                  <p className="type-prose max-w-[62ch] text-void-foreground/95">{body}</p>
                 </div>
               </Rise>
             ))}
@@ -126,15 +118,12 @@ function ProjectSlab({ project, i }: { project: Project; i: number }) {
 
 export function Work() {
   return (
-    <section id="work" className="grain bg-void py-20 text-void-foreground md:py-28">
+    <section id="work" className="grain bg-void py-20 text-void-foreground md:py-32">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6 border-b border-void-rule pb-8">
           <h2 className="type-display">
             <RevealText text="Selected Work" stagger={0.05} />
           </h2>
-          <p className="type-label text-void-foreground/45">
-            Six projects · 2024—2025
-          </p>
         </div>
       </div>
       <div className="mt-4">
