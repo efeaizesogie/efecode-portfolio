@@ -31,9 +31,7 @@ export function Lab() {
           <h2 className="type-display">
             <RevealText text="The Lab" stagger={0.05} />
           </h2>
-          <p className="type-label max-w-[36ch] text-ink-soft">
-            Experiments, concepts and client work that taught me something. Hover to look.
-          </p>
+        
         </div>
 
         <ul className="mt-12 md:mt-16">

@@ -33,7 +33,7 @@ export function About() {
             </Rise>
             <Rise delay={0.08}>
               <p className="type-prose text-ink-soft">
-                 build responsive interfaces in React, Next.js, and TypeScript, with motion crafted to guide understanding rather than merely decorate.
+                I build responsive interfaces in React, Next.js, and TypeScript, with motion crafted to guide understanding rather than merely decorate.
               </p>
             </Rise>
             <Rise delay={0.14}>
@@ -76,23 +76,20 @@ export function About() {
 
 export function Stack() {
   return (
-    <section id="stack" className="border-y border-rule py-20 md:py-28">
+    <section id="stack" className="border-y border-rule py-20 md:py-32">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="type-display">
             <RevealText text="Stack" stagger={0.05} />
           </h2>
-          <p className="type-label max-w-[34ch] text-ink-soft">
-            Tools I reach for daily, and the ones that keep the geospatial half of my brain busy.
-          </p>
         </div>
 
         <div className="mt-12 md:mt-16">
           {skillGroups.map((g, gi) => (
             <Rise key={g.label} delay={gi * 0.05}>
-              <div className="grid gap-3 border-t border-rule py-6 md:grid-cols-[12rem_1fr] md:gap-10 md:py-8">
+              <div className="grid gap-4 border-t border-rule py-7 md:grid-cols-[12rem_1fr] md:gap-12 md:py-9">
                 <p className="type-label text-signal">{g.label}</p>
-                <ul className="flex flex-wrap gap-x-8 gap-y-3">
+                <ul className="flex flex-wrap gap-x-10 gap-y-4">
                   {g.items.map((item) => (
                     <li
                       key={item}
@@ -108,7 +105,7 @@ export function Stack() {
         </div>
       </div>
 
-      <div className="mt-10 overflow-hidden border-t border-rule py-5 flex">
+      <div className="mt-14 overflow-hidden border-t border-rule py-6 flex md:mt-20">
         <div
           className="marquee-track flex w-max shrink-0 whitespace-nowrap"
           style={{ ["--marquee-duration" as string]: "48s" }}
