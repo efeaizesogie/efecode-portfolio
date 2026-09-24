@@ -28,22 +28,17 @@ export function About() {
           <motion.div style={{ y }} className="space-y-5 md:col-span-4 md:col-start-9">
             <Rise>
               <p className="type-prose text-ink-soft">
-                I'm Efe Aizesogie, a Bachelor of Science in Geomatics. I've worked in both the
-                GIS and web development worlds, with a focus on frontend — mapping taught me
-                precision, the browser taught me pace.
+                I'm Efe Aizesogie, with a B.Sc. in Geomatics and four years focused on frontend engineering. Mapping taught me precision; the browser taught me pace.
               </p>
             </Rise>
             <Rise delay={0.08}>
               <p className="type-prose text-ink-soft">
-                I build responsive interfaces that feel considered: HTML, CSS, JavaScript and
-                frameworks like React and Next.js, with motion used to explain rather than
-                decorate.
+                 build responsive interfaces in React, Next.js, and TypeScript, with motion crafted to guide understanding rather than merely decorate.
               </p>
             </Rise>
             <Rise delay={0.14}>
               <p className="type-prose text-ink-soft">
-                Off the keyboard, cartography, and spatial exploration, I think a healthy work–life balance is what keeps
-                the work sharp, and I'm always looking for the next thing I don't know yet.
+                Off the keyboard, cartography and spatial exploration keep the perspective sharp and curious.
               </p>
             </Rise>
             <Rise delay={0.2}>
