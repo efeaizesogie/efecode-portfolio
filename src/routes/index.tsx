@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Cursor } from "@/components/site/cursor";
 import { Nav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
+import { ContourBackdrop } from "@/components/site/terrain";
 import { Work } from "@/components/site/work";
 import { WorkBook } from "@/components/site/work-book";
 
@@ -34,6 +35,7 @@ function Index() {
   return (
     <>
       <Cursor />
+      <ContourBackdrop />
       <Nav />
       <main>
         <Hero />

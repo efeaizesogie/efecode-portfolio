@@ -20,6 +20,7 @@ export function Lab() {
   return (
     <section
       id="lab"
+      data-contour
       className="relative py-20 md:py-32"
       onPointerMove={(e) => {
         x.set(e.clientX);

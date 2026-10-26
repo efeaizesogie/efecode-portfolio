@@ -184,7 +184,7 @@ export function Hero() {
     <section
       id="index"
       ref={ref}
-      className="grain relative min-h-[100svh] overflow-hidden pt-24 [perspective:1400px]"
+      className="grain relative min-h-[100svh] overflow-hidden bg-paper pt-24 [perspective:1400px]"
     >
       <motion.div
         className="absolute inset-0 origin-bottom"

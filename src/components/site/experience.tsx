@@ -10,7 +10,7 @@ export function Experience() {
   const reduced = useReducedMotion();
 
   return (
-    <section id="experience" className="py-20 md:py-32">
+    <section id="experience" data-contour className="py-20 md:py-32">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="type-display">
@@ -89,7 +89,7 @@ export function Experience() {
 
 export function Testimonials() {
   return (
-    <section className="overflow-hidden border-y border-rule py-14 md:py-20 flex flex-col">
+    <section data-contour className="overflow-hidden border-y border-rule py-14 md:py-20 flex flex-col">
       <div className="shell mb-10">
         <p className="type-label text-signal">Said about the work</p>
       </div>

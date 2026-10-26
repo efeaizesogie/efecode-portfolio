@@ -12,7 +12,7 @@ export function About() {
   const y = useTransform(scrollYProgress, [0, 1], reduced ? ["0%", "0%"] : ["6%", "-6%"]);
 
   return (
-    <section id="about" className="grain py-20 md:py-32">
+    <section id="about" data-contour className="grain py-20 md:py-32">
       <div className="shell" ref={ref}>
 
         <div className="mt-8 grid gap-12 md:grid-cols-12 md:gap-x-12">
@@ -76,7 +76,7 @@ export function About() {
 
 export function Stack() {
   return (
-    <section id="stack" className="border-y border-rule py-20 md:py-32">
+    <section id="stack" data-contour className="border-y border-rule py-20 md:py-32">
       <div className="shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <h2 className="type-display">

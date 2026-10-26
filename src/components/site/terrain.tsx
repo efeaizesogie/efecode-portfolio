@@ -6,7 +6,8 @@
  * readout tracks the pointer as coordinates around Benin City.
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "motion/react";
 
 /* Benin City, the map's origin. */
 const ORIGIN = { lat: 6.335, lon: 5.6037 };
@@ -48,10 +49,15 @@ const SUMMIT = 0.85;
 
 export function TerrainCanvas({
   animate,
+  readout = true,
   readoutClassName = "right-[clamp(1.15rem,4vw,4rem)] top-24 md:top-28",
+  strength = 1,
 }: {
   animate: boolean;
+  readout?: boolean;
   readoutClassName?: string;
+  /* Multiplies line opacity; below 1 for backdrops behind body text. */
+  strength?: number;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
@@ -173,10 +179,10 @@ export function TerrainCanvas({
         const L = k * STEP;
         const major = k % 5 === 0;
         if (L >= SUMMIT) {
-          ctx.strokeStyle = `oklch(0.605 0.204 33 / ${Math.min(1, 0.45 + (L - SUMMIT) * 0.9)})`;
+          ctx.strokeStyle = `oklch(0.605 0.204 33 / ${Math.min(1, 0.45 + (L - SUMMIT) * 0.9) * strength})`;
           ctx.lineWidth = major ? 1.6 : 1.1;
         } else {
-          ctx.strokeStyle = `oklch(0.185 0.006 60 / ${major ? 0.42 : 0.2})`;
+          ctx.strokeStyle = `oklch(0.185 0.006 60 / ${(major ? 0.42 : 0.2) * strength})`;
           ctx.lineWidth = major ? 1.2 : 0.8;
         }
         ctx.stroke(p);
@@ -251,18 +257,49 @@ export function TerrainCanvas({
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
-  }, [animate]);
+  }, [animate, strength]);
 
   return (
     <>
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
-      <span
-        ref={readoutRef}
-        aria-hidden
-        className={`type-meta absolute whitespace-pre text-ink-soft ${readoutClassName}`}
-      >
-        {`${ORIGIN.lat.toFixed(4)}° N   ${ORIGIN.lon.toFixed(4)}° E`}
-      </span>
+      {readout && (
+        <span
+          ref={readoutRef}
+          aria-hidden
+          className={`type-meta absolute whitespace-pre text-ink-soft ${readoutClassName}`}
+        >
+          {`${ORIGIN.lat.toFixed(4)}° N   ${ORIGIN.lon.toFixed(4)}° E`}
+        </span>
+      )}
     </>
+  );
+}
+
+/*
+ * One map fixed behind the whole page. It shows through every section marked
+ * `data-contour` (the light ones) and dark sections paint over it. It only
+ * animates while a marked section is on screen.
+ */
+export function ContourBackdrop() {
+  const reduced = useReducedMotion();
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const seen = new Set<Element>();
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) seen.add(e.target);
+        else seen.delete(e.target);
+      }
+      setActive(seen.size > 0);
+    });
+    document.querySelectorAll("[data-contour]").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+      <TerrainCanvas animate={active && !reduced} readout={false} strength={0.6} />
+    </div>
   );
 }
