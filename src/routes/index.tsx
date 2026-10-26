@@ -8,7 +8,8 @@ import { About } from "@/components/site/about";
 import { Nav } from "@/components/site/nav";
 import { Stack } from "@/components/site/stack";
 import { Experience } from "@/components/site/experience";
-import { FooterSlot, QuotesSlot, SectionOptionsPicker } from "@/components/site/section-options";
+import { Testimonials } from "@/components/site/quotes";
+import { Footer } from "@/components/site/footer";
 
 const title = "Efe Aizesogie — Frontend Engineer (EFECODE)";
 const description =
@@ -34,16 +35,14 @@ function Index() {
       <Cursor />
       <ContourBackdrop />
       <Nav />
-      <SectionOptionsPicker />
       <main>
         <Hero />
         <Work />
         <About />
         <Stack />
         <Experience />
-        <div id="quotes-anchor" />
-        <QuotesSlot />
-        <FooterSlot />
+        <Testimonials />
+        <Footer />
       </main>
     </>
   );

@@ -1,16 +1,16 @@
 "use client";
 
 /*
- * Testimonials option T2 — Desk notes.
+ * Testimonials — desk notes view.
  * The quotes as notes and slips scattered on the page, picking up the hero
  * desk. On wide screens they can be picked up and moved; on phones they
  * simply stack.
  */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { testimonials } from "@/lib/portfolio";
-import { RevealText } from "../motion-primitives";
+import { QuotesHeading } from "./heading";
 
 const STYLES = [
   "bg-[oklch(0.86_0.12_88)]",
@@ -30,7 +30,7 @@ const TILTS = [-4, 3, -2, 5, -3];
 
 let topZ = 10;
 
-export function QuotesNotes() {
+export function QuotesNotes({ toggle }: { toggle: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [wide, setWide] = useState(false);
@@ -45,11 +45,9 @@ export function QuotesNotes() {
   }, []);
 
   return (
-    <section data-contour className="overflow-x-clip py-20 md:py-32">
+    <section id="testimonials" data-contour className="overflow-x-clip py-20 md:py-32">
       <div className="shell">
-        <h2 className="type-display">
-          <RevealText text="Kind words" stagger={0.05} />
-        </h2>
+        <QuotesHeading aside={toggle} />
 
         <div
           ref={ref}

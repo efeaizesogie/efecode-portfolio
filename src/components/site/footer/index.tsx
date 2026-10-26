@@ -1,17 +1,16 @@
 "use client";
 
 /*
- * Footer option F3 — Postcard.
- * Contact laid out as a postcard on the desk: a short note on the left, the
- * email and profiles on the address lines, and a postmark carrying today's
- * date and the UK time. `dark` sets the same card on black, over the live
- * contour map in light lines.
+ * Footer — the postcard.
+ * Contact laid out as a paper postcard on black, over the live contour map in
+ * light lines: a short note on the left, the email and profiles on the
+ * address lines, and a postmark carrying today's date and the UK time.
  */
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { TerrainCanvas } from "../terrain";
-import { CONTACT_LINKS, CopyEmail, FooterBar, useUkTime, MagneticEmail } from "./shared";
+import { CONTACT_LINKS, CopyEmail, FooterBar, MagneticEmail, SIGN_OFF, useUkTime } from "./shared";
 
 function Postmark() {
   const time = useUkTime();
@@ -55,38 +54,27 @@ function Postmark() {
   );
 }
 
-export function FooterPostcard({ dark = false }: { dark?: boolean }) {
+export function Footer() {
   const reduced = useReducedMotion();
   return (
     <section
       id="contact"
-      {...(dark ? {} : { "data-contour": "" })}
-      className={
-        dark
-          ? "relative overflow-hidden bg-void pt-20 text-void-foreground md:pt-32"
-          : "pt-20 md:pt-32"
-      }
+      className="relative overflow-hidden bg-void pt-20 text-void-foreground md:pt-32"
     >
-      {dark && (
-        <div aria-hidden className="absolute inset-0 opacity-80">
-          <TerrainCanvas animate={!reduced} readout={false} tone="light" strength={0.7} />
-        </div>
-      )}
+      <div aria-hidden className="absolute inset-0 opacity-80">
+        <TerrainCanvas animate={!reduced} readout={false} tone="light" strength={0.7} />
+      </div>
       <div className="shell relative">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 30, rotate: -4 }}
           whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          className={`mx-auto grid max-w-[64rem] overflow-hidden rounded-[4px] bg-[oklch(0.975_0.006_84)] ring-1 ring-ink/10 md:grid-cols-[1.1fr_1fr] ${
-            dark
-              ? "shadow-[0_50px_100px_-30px_rgb(0_0_0/0.9)]"
-              : "shadow-[0_40px_80px_-40px_rgb(0_0_0/0.55)]"
-          }`}
+          className="mx-auto grid max-w-[64rem] overflow-hidden rounded-[4px] bg-[oklch(0.975_0.006_84)] shadow-[0_50px_100px_-30px_rgb(0_0_0/0.9)] ring-1 ring-ink/10 md:grid-cols-[1.1fr_1fr]"
         >
           <div className="p-7 md:p-12">
             <h2 className="font-prose text-[clamp(1.8rem,3.4vw,2.8rem)] italic leading-[1.15] text-ink">
-              Have an idea to discuss? Let's build it properly.
+              {SIGN_OFF}
             </h2>
             <p className="type-prose mt-6 max-w-[34ch] text-ink/70">
               Shoot me an email, or find me on LinkedIn or X if that's more your speed.
@@ -130,7 +118,7 @@ export function FooterPostcard({ dark = false }: { dark?: boolean }) {
       </div>
 
       <div className="relative mt-20 md:mt-28">
-        <FooterBar tone={dark ? "light" : "ink"} />
+        <FooterBar tone="light" />
       </div>
     </section>
   );

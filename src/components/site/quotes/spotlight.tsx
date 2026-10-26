@@ -1,20 +1,20 @@
 "use client";
 
 /*
- * Testimonials option T1 — Spotlight.
+ * Testimonials — spotlight view.
  * One quote at a time, large and in serif, under an oversized signal
  * quotation mark. Arrows step through them; it advances slowly on its own
  * but pauses on hover or focus, and never moves for reduced-motion users.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { testimonials } from "@/lib/portfolio";
-import { RevealText } from "../motion-primitives";
+import { QuotesHeading } from "./heading";
 
 const INTERVAL = 8000;
 
-export function QuotesSpotlight() {
+export function QuotesSpotlight({ toggle }: { toggle: ReactNode }) {
   const reduced = useReducedMotion();
   const [i, setI] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -31,6 +31,7 @@ export function QuotesSpotlight() {
 
   return (
     <section
+      id="testimonials"
       data-contour
       aria-roledescription="carousel"
       aria-label="Testimonials"
@@ -41,9 +42,7 @@ export function QuotesSpotlight() {
       onBlur={() => setPaused(false)}
     >
       <div className="shell">
-        <h2 className="type-display">
-          <RevealText text="Kind words" stagger={0.05} />
-        </h2>
+        <QuotesHeading aside={toggle} />
 
         <div className="relative mt-12 grid gap-6 md:mt-16 md:grid-cols-[6rem_1fr] md:gap-10">
           <span

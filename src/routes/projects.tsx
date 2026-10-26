@@ -3,7 +3,7 @@ import { Cursor } from "@/components/site/cursor";
 import { ContourBackdrop } from "@/components/site/terrain";
 import { Nav } from "@/components/site/nav";
 import { ProjectsIndex } from "@/components/site/projects-index";
-import { FooterSlot } from "@/components/site/section-options";
+import { Footer } from "@/components/site/footer";
 
 const title = "All projects — Efe Aizesogie (EFECODE)";
 const description =
@@ -30,7 +30,7 @@ function Projects() {
       <Nav />
       <main>
         <ProjectsIndex />
-        <FooterSlot />
+        <Footer />
       </main>
     </>
   );

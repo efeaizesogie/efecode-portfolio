@@ -1,13 +1,15 @@
 "use client";
 
 /*
- * Testimonials option T3 — Columns.
+ * Testimonials — columns view.
  * Every quote at once in unboxed, staggered columns, each signed with an
  * initials mark, the name and handle. Static: nothing to wait for.
  */
 
+import type { ReactNode } from "react";
 import { testimonials } from "@/lib/portfolio";
-import { RevealText, Rise } from "../motion-primitives";
+import { QuotesHeading } from "./heading";
+import { Rise } from "../motion-primitives";
 
 const initials = (name: string) =>
   name
@@ -18,13 +20,11 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 
-export function QuotesColumns() {
+export function QuotesColumns({ toggle }: { toggle: ReactNode }) {
   return (
-    <section data-contour className="py-20 md:py-32">
+    <section id="testimonials" data-contour className="py-20 md:py-32">
       <div className="shell">
-        <h2 className="type-display">
-          <RevealText text="Kind words" stagger={0.05} />
-        </h2>
+        <QuotesHeading aside={toggle} />
 
         <div className="mt-12 gap-10 md:mt-16 md:columns-2 lg:columns-3">
           {testimonials.map((t, i) => (
