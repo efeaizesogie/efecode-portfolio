@@ -65,7 +65,7 @@ function Clock() {
   }, []);
   const parts = now
     ? new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Africa/Lagos",
+        timeZone: "Europe/London",
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
@@ -124,7 +124,7 @@ function Clock() {
         <circle cx="50" cy="50" r="2.5" className="fill-signal" />
       </svg>
       <p className="type-meta mt-2 text-ink-soft">
-        {now ? `${get("hour")}:${get("minute")} in Benin City` : "Benin City"}
+        {now ? `${get("hour")}:${get("minute")} UK time` : "UK time"}
       </p>
     </div>
   );

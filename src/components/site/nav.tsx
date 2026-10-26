@@ -13,7 +13,7 @@ import { links, sections } from "@/lib/portfolio";
 import { Magnetic } from "./interactions";
 import { TerrainCanvas } from "./terrain";
 
-/* The section in view, scroll state, the Benin City clock and smooth jumps. */
+/* The section in view, scroll state, the UK clock and smooth jumps. */
 function useNavState() {
   const [scrolled, setScrolled] = useState(false);
   const [current, setCurrent] = useState("index");
@@ -42,7 +42,7 @@ function useNavState() {
         new Intl.DateTimeFormat("en-GB", {
           hour: "2-digit",
           minute: "2-digit",
-          timeZone: "Africa/Lagos",
+          timeZone: "Europe/London",
         }).format(new Date()),
       );
     tick();
