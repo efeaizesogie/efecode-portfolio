@@ -1,16 +1,12 @@
 "use client";
 
 /*
- * Hero option A — Terrain.
- * A live topographic map drawn with marching squares over drifting noise.
- * The pointer raises a hill; its summit contours glow in signal. On scroll
- * the map tilts away into 3D.
+ * Live topographic map drawn with marching squares over drifting noise.
+ * The pointer raises a hill whose summit contours glow in signal; a corner
+ * readout tracks the pointer as coordinates around Benin City.
  */
 
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { RevealText } from "../motion-primitives";
-import { HERO_LINE, HeroLinks, HeroTitleSr } from "./shared";
 
 /* Benin City, the map's origin. */
 const ORIGIN = { lat: 6.335, lon: 5.6037 };
@@ -268,46 +264,5 @@ export function TerrainCanvas({
         {`${ORIGIN.lat.toFixed(4)}° N   ${ORIGIN.lon.toFixed(4)}° E`}
       </span>
     </>
-  );
-}
-
-export function HeroTerrain() {
-  const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const tilt = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 58]);
-  const mapScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 1.25]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "-30%"]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
-  return (
-    <section
-      id="index"
-      ref={ref}
-      className="grain relative flex min-h-[100svh] flex-col justify-end overflow-hidden pb-10 md:pb-14 [perspective:1400px]"
-    >
-      <motion.div
-        className="absolute inset-0 origin-bottom"
-        style={{ rotateX: tilt, scale: mapScale }}
-      >
-        <TerrainCanvas animate={!reduced} />
-      </motion.div>
-
-      <motion.div style={{ y: textY, opacity: fade }} className="shell relative">
-        <h1>
-          <HeroTitleSr />
-          <span aria-hidden className="type-mega block">
-            <RevealText text="Efe" stagger={0} delay={0.15} />
-          </span>
-          <span aria-hidden className="type-mega -mt-[0.04em] block">
-            <RevealText text="Aizesogie" stagger={0} delay={0.28} />
-          </span>
-        </h1>
-        <div className="mt-8 flex flex-col gap-6 md:mt-10 md:flex-row md:items-end md:justify-between">
-          <p className="type-prose max-w-[44ch] text-ink/85">{HERO_LINE}</p>
-          <HeroLinks />
-        </div>
-      </motion.div>
-    </section>
   );
 }
