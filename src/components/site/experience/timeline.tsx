@@ -1,13 +1,13 @@
 "use client";
 
 /*
- * Experience option E1 — Survey timeline.
+ * Experience — survey timeline view.
  * A time axis from the first role to now with one lane per role, so overlaps
  * and durations read at a glance. Geospatial work is hatched. Selecting a bar
  * fills the role card beneath.
  */
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { FIRST, LAST, ROLES_BY_START, yearOf } from "./data";
 import { ExperienceHeading, RoleDetail } from "./detail";
@@ -21,14 +21,14 @@ for (let y = yearOf(FIRST) + 1; y * 12 <= LAST; y++) YEARS.push(y);
 
 const LANES = [...ROLES_BY_START].reverse(); // newest on top
 
-export function ExperienceTimeline() {
-  const [active, setActive] = useState(LANES[0]!.company);
+export function ExperienceTimeline({ toggle }: { toggle: ReactNode }) {
+  const [active, setActive] = useState((LANES.find((r) => r.current) ?? LANES[0]!).company);
   const role = LANES.find((r) => r.company === active) ?? LANES[0]!;
 
   return (
     <section id="experience" data-contour className="py-20 md:py-32">
       <div className="shell">
-        <ExperienceHeading />
+        <ExperienceHeading aside={toggle} />
 
         <div className="mt-12 md:mt-16">
           <div className="grid grid-cols-[6.5rem_1fr] md:grid-cols-[12rem_1fr]">

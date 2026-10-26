@@ -1,16 +1,20 @@
 "use client";
 
-/* The selected-role readout shared by the interactive Experience layouts. */
+/* The heading and selected-role readout shared by the Experience views. */
 
+import type { ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { RevealText } from "../motion-primitives";
 import { duration, stackLine, type Role } from "./data";
 
-export function ExperienceHeading() {
+export function ExperienceHeading({ aside }: { aside?: ReactNode }) {
   return (
-    <h2 className="type-display">
-      <RevealText text="Experience" stagger={0.05} />
-    </h2>
+    <div className="flex flex-wrap items-end justify-between gap-6">
+      <h2 className="type-display">
+        <RevealText text="Experience" stagger={0.05} />
+      </h2>
+      {aside}
+    </div>
   );
 }
 

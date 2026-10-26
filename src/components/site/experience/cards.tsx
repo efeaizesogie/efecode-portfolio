@@ -1,12 +1,12 @@
 "use client";
 
 /*
- * Experience option E4 — Index cards.
+ * Experience — index cards view.
  * Each role is a ruled index card in a fanned stack, picking up the desk from
  * the hero. Clicking the front card, or a date below, brings the next one up.
  */
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { links } from "@/lib/portfolio";
 import { ROLES, duration, stackLine, stamp } from "./data";
@@ -14,15 +14,20 @@ import { ExperienceHeading } from "./detail";
 
 const TILTS = [-2, 4, -5, 3, -3, 5];
 
-export function ExperienceCards() {
+export function ExperienceCards({ toggle }: { toggle: ReactNode }) {
   const roles = [...ROLES].sort((a, b) => b.start - a.start);
-  const [front, setFront] = useState(0);
+  const [front, setFront] = useState(() =>
+    Math.max(
+      0,
+      roles.findIndex((r) => r.current),
+    ),
+  );
   const n = roles.length;
 
   return (
     <section id="experience" data-contour className="overflow-x-clip py-20 md:py-32">
       <div className="shell">
-        <ExperienceHeading />
+        <ExperienceHeading aside={toggle} />
 
         <div className="mt-12 grid items-center gap-12 md:mt-16 lg:grid-cols-[1fr_16rem]">
           <div className="relative mx-auto h-[22rem] w-full max-w-[38rem] md:h-[17rem]">

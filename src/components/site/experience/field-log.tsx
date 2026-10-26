@@ -1,12 +1,13 @@
 "use client";
 
 /*
- * Experience option E3 — Field log.
+ * Experience — field log view.
  * Set like a surveyor's field book: ruled lines, a signal margin, dates in a
  * mono column and one short entry per role. Nothing to click; the résumé
  * link closes the page.
  */
 
+import type { ReactNode } from "react";
 import { links } from "@/lib/portfolio";
 import { Rise } from "../motion-primitives";
 import { ROLES, stamp } from "./data";
@@ -14,13 +15,13 @@ import { ExperienceHeading } from "./detail";
 
 const RULE = "2.25rem";
 
-export function ExperienceFieldLog() {
+export function ExperienceFieldLog({ toggle }: { toggle: ReactNode }) {
   const entries = [...ROLES].sort((a, b) => b.start - a.start);
 
   return (
     <section id="experience" data-contour className="py-20 md:py-32">
       <div className="shell">
-        <ExperienceHeading />
+        <ExperienceHeading aside={toggle} />
 
         <div
           className="relative mt-12 overflow-hidden rounded-[4px] border border-ink/15 bg-[oklch(0.965_0.008_84)] shadow-[0_30px_60px_-40px_rgb(0_0_0/0.5)] md:mt-16"

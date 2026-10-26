@@ -7,15 +7,8 @@ import { Work } from "@/components/site/work";
 import { About } from "@/components/site/about";
 import { Nav } from "@/components/site/nav";
 import { Stack } from "@/components/site/stack";
-import { Testimonials } from "@/components/site/experience";
-import {
-  ExperiencePicker,
-  ExperienceSlot,
-  type ExperienceKey,
-} from "@/components/site/experience-options";
-
-// Experience on the live site: current, timeline, strata, log, cards.
-const EXPERIENCE: ExperienceKey = "current";
+import { Experience } from "@/components/site/experience";
+import { Testimonials } from "@/components/site/testimonials";
 import { Contact } from "@/components/site/contact";
 
 const title = "Efe Aizesogie — Frontend Engineer (EFECODE)";
@@ -42,13 +35,12 @@ function Index() {
       <Cursor />
       <ContourBackdrop />
       <Nav />
-      <ExperiencePicker chosen={EXPERIENCE} />
       <main>
         <Hero />
         <Work />
         <About />
         <Stack />
-        <ExperienceSlot chosen={EXPERIENCE} />
+        <Experience />
         <Testimonials />
         <Contact />
       </main>

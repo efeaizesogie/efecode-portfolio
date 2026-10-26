@@ -1,13 +1,13 @@
 "use client";
 
 /*
- * Experience option E2 — Strata.
+ * Experience — strata view.
  * A geological cross-section: each role is a rock layer, oldest at the
  * bottom, its thickness by duration and its fill by the kind of work.
  * Selecting a layer lifts it and fills the role card beside it.
  */
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { ROLES_BY_START, stamp } from "./data";
 import { ExperienceHeading, RoleDetail } from "./detail";
@@ -32,9 +32,9 @@ function boundary(W: number, y: number, k: number, reverse = false) {
   return pts.join(" L ");
 }
 
-export function ExperienceStrata() {
+export function ExperienceStrata({ toggle }: { toggle: ReactNode }) {
   const uid = useId().replace(/:/g, "");
-  const [active, setActive] = useState(LAYERS[0]!.company);
+  const [active, setActive] = useState((LAYERS.find((r) => r.current) ?? LAYERS[0]!).company);
   const role = LAYERS.find((r) => r.company === active) ?? LAYERS[0]!;
   // A narrower drawing on phones keeps the labels at a readable size.
   const [W, setW] = useState(640);
@@ -49,7 +49,7 @@ export function ExperienceStrata() {
   return (
     <section id="experience" data-contour className="py-20 md:py-32">
       <div className="shell">
-        <ExperienceHeading />
+        <ExperienceHeading aside={toggle} />
 
         <div className="mt-12 grid gap-10 md:mt-16 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
           <svg
