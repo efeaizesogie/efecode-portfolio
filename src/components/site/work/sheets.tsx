@@ -1,12 +1,13 @@
 "use client";
 
 /*
- * Selected Work option W2 — Field sheets.
+ * Selected Work — field sheets view.
  * Each project is a magazine-style spread: its four screenshots unframed and
  * at unequal sizes, staggered and bleeding off the right edge. The notes sit
  * small in a corner, like annotations on a survey sheet.
  */
 
+import type { ReactNode } from "react";
 import { Rise } from "../motion-primitives";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
@@ -88,11 +89,11 @@ function Sheet({ p, i }: { p: WorkItem; i: number }) {
   );
 }
 
-export function WorkSheets() {
+export function WorkSheets({ toggle }: { toggle: ReactNode }) {
   return (
     <section id="work" data-contour className="relative overflow-x-clip py-20 md:py-32">
       <div className="shell">
-        <WorkHeading />
+        <WorkHeading aside={toggle} />
         <div className="mt-14 flex flex-col gap-24 md:mt-20 md:gap-40">
           {WORK.map((p, i) => (
             <Sheet key={p.slug} p={p} i={i} />

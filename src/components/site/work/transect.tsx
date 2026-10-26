@@ -1,13 +1,13 @@
 "use client";
 
 /*
- * Selected Work option W3 — Transect.
+ * Selected Work — transect view.
  * The section pins and scrolling walks sideways along a terrain line, like a
  * survey transect. Each project stands as a print on its own rise, marked
  * with survey stationing (0+00, 1+00 …) along the ground line.
  */
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
@@ -60,7 +60,7 @@ function Station({ p, i }: { p: WorkItem; i: number }) {
   );
 }
 
-export function WorkTransect() {
+export function WorkTransect({ toggle }: { toggle: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -114,7 +114,7 @@ export function WorkTransect() {
     return (
       <section id="work" data-contour className="relative py-20 md:py-32">
         <div className="shell">
-          <WorkHeading />
+          <WorkHeading aside={toggle} />
           <div className="mt-14 flex flex-col gap-16">
             {WORK.map((p, i) => (
               <Station key={p.slug} p={p} i={i} />
@@ -129,6 +129,9 @@ export function WorkTransect() {
     <section id="work" data-contour className="relative">
       <div ref={ref} className="relative" style={{ height: `${WORK.length * 75 + 40}svh` }}>
         <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
+          <div className="absolute right-[clamp(1.15rem,4vw,4rem)] top-20 z-10 md:top-24">
+            {toggle}
+          </div>
           <motion.div
             ref={trackRef}
             style={{ x }}
