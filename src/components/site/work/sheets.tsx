@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { Rise } from "../motion-primitives";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
+import { ViewAllProjects } from "./view-all";
 
 /* Two alternating spread layouts on a 12-column grid (desktop). */
 const LAYOUTS = [
@@ -98,6 +99,9 @@ export function WorkSheets({ toggle }: { toggle: ReactNode }) {
           {WORK.map((p, i) => (
             <Sheet key={p.slug} p={p} i={i} />
           ))}
+        </div>
+        <div className="mt-24 md:mt-36">
+          <ViewAllProjects />
         </div>
       </div>
     </section>

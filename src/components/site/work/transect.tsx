@@ -11,6 +11,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
+import { ViewAllProjects } from "./view-all";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 const GROUND_H = 150;
@@ -120,6 +121,9 @@ export function WorkTransect({ toggle }: { toggle: ReactNode }) {
               <Station key={p.slug} p={p} i={i} />
             ))}
           </div>
+          <div className="mt-16">
+            <ViewAllProjects />
+          </div>
         </div>
       </section>
     );
@@ -147,6 +151,11 @@ export function WorkTransect({ toggle }: { toggle: ReactNode }) {
                 <Station p={p} i={i} />
               </div>
             ))}
+
+            {/* End of the line: the way on to every project. */}
+            <div className="flex w-[78vw] shrink-0 flex-col justify-end self-stretch pb-[150px] md:w-[30vw]">
+              <ViewAllProjects />
+            </div>
 
             {ground.width > 0 && (
               <svg

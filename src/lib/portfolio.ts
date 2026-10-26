@@ -339,6 +339,5 @@ export const sections = [
   { id: "about", label: "About" },
   { id: "stack", label: "Stack" },
   { id: "experience", label: "Experience" },
-  { id: "lab", label: "Lab" },
   { id: "contact", label: "Contact" },
 ];

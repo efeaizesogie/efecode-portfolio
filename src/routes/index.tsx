@@ -8,7 +8,6 @@ import { About } from "@/components/site/about";
 import { Nav } from "@/components/site/nav";
 import { Stack } from "@/components/site/stack";
 import { Experience, Testimonials } from "@/components/site/experience";
-import { Lab } from "@/components/site/lab";
 import { Contact } from "@/components/site/contact";
 
 const title = "Efe Aizesogie — Frontend Engineer (EFECODE)";
@@ -42,7 +41,6 @@ function Index() {
         <Stack />
         <Experience />
         <Testimonials />
-        <Lab />
         <Contact />
       </main>
     </>

@@ -4,7 +4,7 @@
  * Site navigation — the map menu.
  * The header is just the name and a Menu key. Opening it lays the sections
  * out on a live contour map, each on its own peak. M toggles it, Esc closes
- * it and 1–7 jump straight to a section.
+ * it and the number keys jump straight to a section.
  */
 
 import { useEffect, useState } from "react";
@@ -56,7 +56,10 @@ function useNavState() {
   }, []);
 
   const go = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById(id);
+    // Sections live on the home page; from other routes, go home to them.
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    else window.location.assign(id === "index" ? "/" : `/#${id}`);
   };
 
   const currentIndex = Math.max(
@@ -219,6 +222,12 @@ export function Nav() {
               </a>
               <div className="flex items-center gap-6">
                 <a
+                  href="/projects"
+                  className="type-label link-underline text-ink-soft hover:text-signal"
+                >
+                  All projects
+                </a>
+                <a
                   href={links.resume}
                   target="_blank"
                   rel="noreferrer"
@@ -227,7 +236,7 @@ export function Nav() {
                   Résumé ↗
                 </a>
                 <span className="type-label hidden items-center gap-2 text-ink-soft md:flex">
-                  <Key>1</Key>–<Key>7</Key> to jump
+                  <Key>1</Key>–<Key>{String(sections.length)}</Key> to jump
                 </span>
               </div>
             </div>
