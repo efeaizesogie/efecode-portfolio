@@ -3,6 +3,10 @@ import { Cursor } from "@/components/site/cursor";
 import { Nav } from "@/components/site/nav";
 import { Hero } from "@/components/site/hero";
 import { Work } from "@/components/site/work";
+import { WorkBook } from "@/components/site/work-book";
+
+// Experiment: flip to false to restore the original slab layout.
+const USE_BOOK_SHOWCASE = true;
 import { About, Stack } from "@/components/site/about";
 import { Experience, Testimonials } from "@/components/site/experience";
 import { Lab } from "@/components/site/lab";
@@ -33,7 +37,7 @@ function Index() {
       <Nav />
       <main>
         <Hero />
-        <Work />
+        {USE_BOOK_SHOWCASE ? <WorkBook /> : <Work />}
         <About />
         <Stack />
         <Experience />
