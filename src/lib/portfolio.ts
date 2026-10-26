@@ -34,6 +34,7 @@ export const featuredProjects: Project[] = [
     year: "2026",
     stack: ["HTML", "CSS", "JS"],
     image: "/work/furlio/1.jpg",
+    live: "https://jocular-alpaca-f1859d.netlify.app/",
   },
   {
     slug: "scamtrail",
