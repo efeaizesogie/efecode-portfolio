@@ -8,12 +8,8 @@ import { WorkBook } from "@/components/site/work-book";
 // Experiment: flip to false to restore the original slab layout.
 const USE_BOOK_SHOWCASE = true;
 import { About } from "@/components/site/about";
-import { NavSlot, OptionsPicker, StackSlot, type NavKey, type StackKey } from "@/components/site/options";
-
-// Navbar and Stack on the live site. Nav: current, map, scale, rail, survey.
-// Stack: current, keys, profile, layers, ledger.
-const NAV: NavKey = "current";
-const STACK: StackKey = "current";
+import { Nav } from "@/components/site/nav";
+import { Stack } from "@/components/site/stack";
 import { Experience, Testimonials } from "@/components/site/experience";
 import { Lab } from "@/components/site/lab";
 import { Contact } from "@/components/site/contact";
@@ -41,13 +37,12 @@ function Index() {
     <>
       <Cursor />
       <ContourBackdrop />
-      <NavSlot chosen={NAV} />
-      <OptionsPicker nav={NAV} stack={STACK} />
+      <Nav />
       <main>
         <Hero />
         {USE_BOOK_SHOWCASE ? <WorkBook /> : <Work />}
         <About />
-        <StackSlot chosen={STACK} />
+        <Stack />
         <Experience />
         <Testimonials />
         <Lab />

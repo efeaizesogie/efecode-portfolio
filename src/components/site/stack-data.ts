@@ -90,16 +90,4 @@ export const TOOLS: Tool[] = skillGroups.flatMap((g) =>
 
 export const GROUPS = skillGroups.map((g) => g.label);
 
-/* Projects with a thumbnail, for views that light up where tools were used. */
-export const PROJECT_THUMBS = [
-  ...featuredProjects.map((p) => ({
-    title: p.title,
-    image: `/work/${p.slug}/1.jpg`,
-    stack: p.stack,
-  })),
-  ...experiments.map((e) => ({ title: e.title, image: e.image, stack: e.stack.split("·") })),
-];
-
-export const usesTool = (stack: string[], tool: string) => stack.some((s) => same(s, tool));
-
 export const weight = (t: Tool) => t.projects.length + t.roles.length;

@@ -1,17 +1,16 @@
 "use client";
 
 /*
- * Stack option S2 — Elevation profile.
+ * Stack — an elevation profile of the toolkit.
  * A terrain cross-section: one peak per tool, its height the number of
  * projects and roles that used it. Fainter ridges behind give depth.
  * Hovering or tapping a peak drops a survey marker and fills the readout.
  */
 
 import { useState } from "react";
-import { motion } from "motion/react";
-import { RevealText } from "../motion-primitives";
-import { GROUPS, TOOLS, weight } from "./stack-data";
-import { Readout } from "./stack-readout";
+import { motion, AnimatePresence } from "motion/react";
+import { RevealText } from "./motion-primitives";
+import { GROUPS, TOOLS, weight, type Tool } from "./stack-data";
 
 const W = 1000;
 const H = 340;
@@ -60,7 +59,39 @@ const FRONT = ridge(1, 0);
 const MID = ridge(0.72, step * 0.45);
 const BACK = ridge(0.5, -step * 0.3);
 
-export function StackProfile() {
+function Readout({ tool }: { tool: Tool }) {
+  const where = [...tool.projects, ...tool.roles.map((r) => `${r} (role)`)];
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={tool.name}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -8 }}
+        transition={{ duration: 0.25 }}
+      >
+        <p className="type-display !text-[clamp(2rem,4vw,3.4rem)]">{tool.name}</p>
+        <p className="type-prose mt-3 text-ink/80">
+          {where.length === 0
+            ? "Part of the toolkit, not yet credited on a listed project."
+            : `Used in ${[
+                tool.projects.length &&
+                  `${tool.projects.length} project${tool.projects.length === 1 ? "" : "s"}`,
+                tool.roles.length &&
+                  `${tool.roles.length} role${tool.roles.length === 1 ? "" : "s"}`,
+              ]
+                .filter(Boolean)
+                .join(" and ")}${tool.since ? `, since ${tool.since}` : ""}.`}
+        </p>
+        {where.length > 0 && (
+          <p className="type-meta mt-4 max-w-[52ch] text-ink-soft">{where.join(" · ")}</p>
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
+export function Stack() {
   const [active, setActive] = useState(TOOLS.findIndex((t) => t.name === "React"));
   const tool = TOOLS[active] ?? TOOLS[0]!;
   const ax = peakX(active);
