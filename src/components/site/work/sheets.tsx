@@ -77,12 +77,27 @@ function Sheet({ p, i }: { p: WorkItem; i: number }) {
             data-cursor="Visit"
             className="block h-full"
           >
-            <img
-              src={src}
-              alt={`${p.title} screen ${n + 1}`}
-              loading="lazy"
-              className="h-full w-full border border-ink/10 bg-white object-cover object-left-top"
-            />
+            {n === 0 && p.video ? (
+              // A project with a walkthrough leads with it, muted and looping.
+              <video
+                src={p.video}
+                poster={p.poster ?? src}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={`${p.title} walkthrough video`}
+                className="h-full w-full border border-ink/10 bg-black object-cover object-left-top"
+              />
+            ) : (
+              <img
+                src={src}
+                alt={`${p.title} screen ${n + 1}`}
+                loading="lazy"
+                className="h-full w-full border border-ink/10 bg-white object-cover object-left-top"
+              />
+            )}
           </a>
         </Rise>
       ))}

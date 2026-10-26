@@ -39,12 +39,26 @@ function Station({ p, i }: { p: WorkItem; i: number }) {
         data-cursor="Visit"
         className="mt-4 block overflow-hidden rounded-[3px] bg-white p-1.5 shadow-[0_24px_50px_-30px_rgb(0_0_0/0.6)]"
       >
-        <img
-          src={p.shots[0]}
-          alt={`${p.title} interface`}
-          loading="lazy"
-          className="aspect-[16/10] w-full object-cover object-left-top"
-        />
+        {p.video ? (
+          <video
+            src={p.video}
+            poster={p.poster ?? p.shots[0]}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={`${p.title} walkthrough video`}
+            className="aspect-[16/10] w-full bg-black object-cover object-left-top"
+          />
+        ) : (
+          <img
+            src={p.shots[0]}
+            alt={`${p.title} interface`}
+            loading="lazy"
+            className="aspect-[16/10] w-full object-cover object-left-top"
+          />
+        )}
       </a>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
         <p className="type-prose max-w-[46ch] !text-[1rem] !leading-snug text-ink/75">{p.blurb}</p>

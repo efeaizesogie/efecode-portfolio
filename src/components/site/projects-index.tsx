@@ -41,27 +41,25 @@ function FloatingPrints({ index }: { index: number | null }) {
     >
       <AnimatePresence>
         {item &&
-          item.shots
-            .slice(0, 3)
-            .map((src, n) => (
-              <motion.img
-                key={`${item.slug}-${n}`}
-                src={src}
-                alt=""
-                className="absolute left-0 top-0 aspect-[16/10] w-full rounded-[3px] bg-white object-cover object-left-top p-1 shadow-[0_18px_40px_-20px_rgb(0_0_0/0.55)]"
-                style={{ zIndex: 3 - n }}
-                initial={{ opacity: 0, scale: 0.9, rotate: 0, x: 0, y: 0 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotate: [-2, 5, -7][n] ?? 0,
-                  x: n * 14,
-                  y: n * 10,
-                }}
-                exit={{ opacity: 0, scale: 0.92 }}
-                transition={{ duration: 0.35, delay: n * 0.04, ease: [0.16, 1, 0.3, 1] }}
-              />
-            ))}
+          item.shots.slice(0, 3).map((src, n) => (
+            <motion.img
+              key={`${item.slug}-${n}`}
+              src={src}
+              alt=""
+              className="absolute left-0 top-0 aspect-[16/10] w-full rounded-[3px] bg-white object-cover object-left-top p-1 shadow-[0_18px_40px_-20px_rgb(0_0_0/0.55)]"
+              style={{ zIndex: 3 - n }}
+              initial={{ opacity: 0, scale: 0.9, rotate: 0, x: 0, y: 0 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                rotate: [-2, 5, -7][n] ?? 0,
+                x: n * 14,
+                y: n * 10,
+              }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.35, delay: n * 0.04, ease: [0.16, 1, 0.3, 1] }}
+            />
+          ))}
       </AnimatePresence>
     </motion.div>
   );
@@ -109,8 +107,17 @@ export function ProjectsIndex() {
                   >
                     {p.index}
                   </span>
-                  <span className="type-title transition-transform duration-500 group-hover:translate-x-2">
+                  <span className="type-title flex items-center gap-3 transition-transform duration-500 group-hover:translate-x-2">
                     {p.title}
+                    {p.video && (
+                      <span
+                        aria-label="Has a video walkthrough"
+                        title="Video walkthrough"
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-signal text-[0.55rem] text-signal"
+                      >
+                        ▶
+                      </span>
+                    )}
                   </span>
                   <span className="type-prose hidden !text-[1rem] text-ink/70 md:block">
                     {p.blurb}
@@ -138,6 +145,22 @@ export function ProjectsIndex() {
                     >
                       <div className="pb-10 md:pl-[6rem]">
                         <p className="type-prose max-w-[52ch] text-ink/80 md:hidden">{p.blurb}</p>
+                        {p.video && (
+                          // The walkthrough leads; it plays muted and loops, with
+                          // controls so visitors can unmute or scrub.
+                          <video
+                            src={p.video}
+                            poster={p.poster ?? p.shots[0]}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            controls
+                            preload="metadata"
+                            aria-label={`${p.title} walkthrough video`}
+                            className="mb-3 mt-4 aspect-video w-full max-w-4xl rounded-[3px] bg-black shadow-[0_20px_40px_-24px_rgb(0_0_0/0.6)] md:mb-4 md:mt-0"
+                          />
+                        )}
                         <div
                           className={`mt-4 grid gap-2 md:mt-0 md:gap-3 ${
                             p.shots.length > 1
@@ -156,24 +179,30 @@ export function ProjectsIndex() {
                           ))}
                         </div>
                         <div className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
-                          <a
-                            href={p.live}
-                            target="_blank"
-                            rel="noreferrer"
-                            data-cursor="Visit"
-                            className="type-label link-underline text-signal"
-                          >
-                            Live site ↗
-                          </a>
-                          <a
-                            href={p.repo}
-                            target="_blank"
-                            rel="noreferrer"
-                            data-cursor="Code"
-                            className="type-label link-underline text-ink-soft hover:text-ink"
-                          >
-                            Source ↗
-                          </a>
+                          {p.live && (
+                            <a
+                              href={p.live}
+                              target="_blank"
+                              rel="noreferrer"
+                              data-cursor="Visit"
+                              className="type-label link-underline text-signal"
+                            >
+                              Live site ↗
+                            </a>
+                          )}
+                          {p.repo ? (
+                            <a
+                              href={p.repo}
+                              target="_blank"
+                              rel="noreferrer"
+                              data-cursor="Code"
+                              className="type-label link-underline text-ink-soft hover:text-ink"
+                            >
+                              Source ↗
+                            </a>
+                          ) : (
+                            <span className="type-label text-ink-soft">Private repo</span>
+                          )}
                         </div>
                       </div>
                     </motion.div>

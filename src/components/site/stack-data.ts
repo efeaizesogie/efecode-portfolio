@@ -67,7 +67,11 @@ const yearOf = (period: string) => {
 
 const projectSources = [
   ...featuredProjects.map((p) => ({ title: p.title, stack: p.stack, year: Number(p.year) })),
-  ...experiments.map((e) => ({ title: e.title, stack: e.stack.split("·"), year: undefined })),
+  ...experiments.map((e) => ({
+    title: e.title,
+    stack: e.stack.split("·"),
+    year: e.year ? Number(e.year) : undefined,
+  })),
 ];
 
 export const TOOLS: Tool[] = skillGroups.flatMap((g) =>

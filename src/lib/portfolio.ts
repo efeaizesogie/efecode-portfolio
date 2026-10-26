@@ -125,7 +125,183 @@ export const featuredProjects: Project[] = [
   },
 ];
 
-export const experiments = [
+/* Projects beyond the featured six: everything on /projects after them.
+ * `live` or `repo` is left out when there's no public site or the repo is
+ * private; `video` is a short walkthrough shown when the row is opened. */
+export type Experiment = {
+  title: string;
+  kind: string;
+  year?: string;
+  stack: string;
+  note: string;
+  image: string;
+  shots?: string[];
+  video?: string;
+  poster?: string;
+  live?: string;
+  repo?: string;
+};
+
+export const experiments: Experiment[] = [
+  {
+    title: "Verto",
+    kind: "Concept",
+    year: "2026",
+    stack: "React · Three.js · GSAP · TS",
+    note: "Scroll-driven 3D showroom for a clothing label: five pieces turned in a seamless grey void.",
+    image: "/work/verto/1.jpg",
+    shots: ["/work/verto/1.jpg", "/work/verto/2.jpg", "/work/verto/3.jpg", "/work/verto/4.jpg"],
+    live: "https://verto-orcin-phi.vercel.app/",
+  },
+  {
+    title: "ApplyReady",
+    kind: "Product",
+    year: "2026",
+    stack: "Next.js · React · Tailwind · TS · Supabase",
+    note: "Turns any scholarship, job, admission or grant announcement into a deadline-paced checklist that emails you daily until you submit.",
+    image: "/work/applyready/1.jpg",
+    shots: [
+      "/work/applyready/1.jpg",
+      "/work/applyready/2.jpg",
+      "/work/applyready/3.jpg",
+      "/work/applyready/4.jpg",
+    ],
+    video: "/work/applyready/demo.mp4",
+    poster: "/work/applyready/poster.jpg",
+    live: "https://applyready-gamma.vercel.app/",
+    repo: "https://github.com/efeaizesogie/applyready",
+  },
+  {
+    title: "Furlio",
+    kind: "Concept",
+    year: "2026",
+    stack: "HTML · CSS · JS",
+    note: "Editorial concept site for an architectural furniture studio that draws every piece before it builds it.",
+    image: "/work/furlio/1.jpg",
+    shots: ["/work/furlio/1.jpg", "/work/furlio/2.jpg", "/work/furlio/3.jpg", "/work/furlio/4.jpg"],
+    video: "/work/furlio/demo.mp4",
+    poster: "/work/furlio/poster.jpg",
+  },
+  {
+    title: "ScamTrail",
+    kind: "Product",
+    year: "2026",
+    stack: "Next.js · React · Tailwind · GSAP · TS",
+    note: "Evidence-based due diligence for Web3: search a handle, wallet, contract or domain and see what the evidence says and leaves open.",
+    image: "/work/scamtrail/1.jpg",
+    shots: [
+      "/work/scamtrail/1.jpg",
+      "/work/scamtrail/2.jpg",
+      "/work/scamtrail/3.jpg",
+      "/work/scamtrail/4.jpg",
+    ],
+    video: "/work/scamtrail/demo.mp4",
+    poster: "/work/scamtrail/poster.jpg",
+    live: "https://scamtrail.vercel.app/",
+    repo: "https://github.com/efeaizesogie/scamtrail",
+  },
+  {
+    title: "Nebula",
+    kind: "Landing",
+    year: "2026",
+    stack: "HTML · CSS · JS",
+    note: "Waitlist site for a non-custodial DeFi staking platform with auto-compounding vaults and scored validators.",
+    image: "/work/nebula/1.jpg",
+    shots: ["/work/nebula/1.jpg", "/work/nebula/2.jpg", "/work/nebula/3.jpg", "/work/nebula/4.jpg"],
+    live: "https://nebula-cyan-alpha.vercel.app/",
+    repo: "https://github.com/efeaizesogie/nebula",
+  },
+  {
+    title: "Plearn",
+    kind: "Landing",
+    year: "2026",
+    stack: "React · Tailwind · Framer Motion · TS",
+    note: "Site for a playful after-school coding school where kids build real games with friendly mentors.",
+    image: "/work/plearn/1.jpg",
+    shots: ["/work/plearn/1.jpg", "/work/plearn/2.jpg", "/work/plearn/3.jpg", "/work/plearn/4.jpg"],
+    live: "https://plearn-gold.vercel.app/",
+    repo: "https://github.com/efeaizesogie/plearn",
+  },
+  {
+    title: "IdeaBank",
+    kind: "Tool",
+    year: "2026",
+    stack: "Next.js · React · Tailwind · TS",
+    note: "Type a website idea and get every design decision made: one master prompt, media prompts and a brand kit.",
+    image: "/work/ideabank/1.jpg",
+    shots: ["/work/ideabank/1.jpg"],
+    live: "https://ideabank.vercel.app/",
+  },
+  {
+    title: "Where Was Crime Reported?",
+    kind: "Data story",
+    year: "2026",
+    stack: "React · D3 · JS",
+    note: "A visual investigation into reported crime across Nigeria in 2016, how population changes the picture, and why there is no single map of crime.",
+    image: "/work/crimestory/1.jpg",
+    shots: [
+      "/work/crimestory/1.jpg",
+      "/work/crimestory/2.jpg",
+      "/work/crimestory/3.jpg",
+      "/work/crimestory/4.jpg",
+    ],
+    live: "https://crimestory-wheat.vercel.app/",
+    repo: "https://github.com/efeaizesogie/crimestory",
+  },
+  {
+    title: "Zonocore",
+    kind: "Client site",
+    year: "2026",
+    stack: "React · Tailwind · TS · TanStack Start",
+    note: "Website for a Benin City civil and environmental engineering consultancy: geotechnics, EIA, land surveying and design.",
+    image: "/work/zonocore/1.jpg",
+    shots: [
+      "/work/zonocore/1.jpg",
+      "/work/zonocore/2.jpg",
+      "/work/zonocore/3.jpg",
+      "/work/zonocore/4.jpg",
+    ],
+    live: "https://zonocore.vercel.app/",
+    repo: "https://github.com/efeaizesogie/Zonocore",
+  },
+  {
+    title: "RSVP",
+    kind: "Catalogue",
+    year: "2026",
+    stack: "Next.js · React · Tailwind · Framer Motion · TS",
+    note: "A browsable catalogue of digital wedding invitation and RSVP templates.",
+    image: "/work/rsvp/1.jpg",
+    shots: ["/work/rsvp/1.jpg", "/work/rsvp/2.jpg", "/work/rsvp/3.jpg", "/work/rsvp/4.jpg"],
+    live: "https://rsvp-chi-ecru.vercel.app/",
+    repo: "https://github.com/efeaizesogie/rsvp",
+  },
+  {
+    title: "FreeAI",
+    kind: "Tool",
+    year: "2026",
+    stack: "React · TS",
+    note: "One chat UI for every free LLM provider: bring your own keys and route across 60+ free-tier models.",
+    image: "/work/freeai/1.jpg",
+    shots: ["/work/freeai/1.jpg", "/work/freeai/2.jpg", "/work/freeai/3.jpg", "/work/freeai/4.jpg"],
+    live: "https://freeai-ivory.vercel.app/",
+    repo: "https://github.com/efeaizesogie/Freeai",
+  },
+  {
+    title: "PayFlow Analyzer",
+    kind: "Dashboard",
+    year: "2026",
+    stack: "React · TS · Recharts",
+    note: "Transaction analytics dashboard with spend categorisation, anomaly detection and burn-rate forecasting.",
+    image: "/work/payflow-analyzer/1.jpg",
+    shots: [
+      "/work/payflow-analyzer/1.jpg",
+      "/work/payflow-analyzer/2.jpg",
+      "/work/payflow-analyzer/3.jpg",
+      "/work/payflow-analyzer/4.jpg",
+    ],
+    live: "https://payflow-analyzer.vercel.app/",
+    repo: "https://github.com/efeaizesogie/payflow-analyzer",
+  },
   {
     title: "Aether",
     kind: "Concept",
