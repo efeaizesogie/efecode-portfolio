@@ -6,7 +6,7 @@ import { Work } from "@/components/site/work";
 import { WorkBook } from "@/components/site/work-book";
 
 // Hero on the live site. Options: current, terrain, type, desk, monolith.
-const HERO: HeroKey = "terrain";
+const HERO: HeroKey = "desk";
 
 // Experiment: flip to false to restore the original slab layout.
 const USE_BOOK_SHOWCASE = true;

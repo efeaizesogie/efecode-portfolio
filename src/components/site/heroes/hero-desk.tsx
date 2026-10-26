@@ -1,16 +1,18 @@
 "use client";
 
 /*
- * Hero option C — The desk.
- * A top-down work surface. The name is printed into the desk itself; on top
- * sit objects you can pick up and throw around: a note, a live clock, a
- * business card and project printouts.
+ * Hero — Terrain desk.
+ * The live contour map from the Terrain option is the desk surface. The name
+ * is printed into it; on top sit objects you can pick up and throw around:
+ * a note, a live clock, a business card and two project printouts. Moving
+ * them raises the terrain under the pointer, and on scroll the map tilts.
  */
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { featuredProjects, links } from "@/lib/portfolio";
 import { HeroLinks, HeroTitleSr } from "./shared";
+import { TerrainCanvas } from "./hero-terrain";
 
 let topZ = 10;
 
@@ -128,100 +130,132 @@ function Clock() {
   );
 }
 
+const PRINTS = [
+  {
+    slug: "honatrix",
+    shot: "/work/honatrix/1.jpg",
+    rotate: -5,
+    place: "left-[6%] top-[33%] md:left-[31%] md:top-[15%]",
+  },
+  {
+    slug: "fundedfun",
+    shot: "/work/fundedfun/1.jpg",
+    rotate: 4,
+    place: "right-[5%] top-[47%] md:left-[56%] md:right-auto md:top-[31%]",
+  },
+];
+
 export function HeroDesk() {
   const ref = useRef<HTMLElement>(null);
-  const prints = [featuredProjects[1], featuredProjects[2], featuredProjects[4]].filter(Boolean);
-  const printShots = ["/work/traders-launch/1.jpg", "/work/clinq/1.jpg", "/work/fundedfun/1.jpg"];
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const tilt = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 58]);
+  const mapScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 1.25]);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section
       id="index"
       ref={ref}
-      className="grain relative min-h-[100svh] overflow-hidden bg-[oklch(0.9_0.012_80)] pt-24"
+      className="grain relative min-h-[100svh] overflow-hidden pt-24 [perspective:1400px]"
     >
-      {/* The name, printed into the desk under everything else. */}
-      <h1 className="pointer-events-none absolute inset-x-0 bottom-[14svh] select-none text-center md:bottom-[10svh]">
-        <HeroTitleSr />
-        <span aria-hidden className="type-mega block text-ink/[0.9]">
-          Efe Aizesogie
-        </span>
-      </h1>
-
-      <div className="pointer-events-auto absolute bottom-6 left-1/2 z-[5] -translate-x-1/2 md:bottom-8">
-        <HeroLinks />
-      </div>
-
-      {/* Sticky note */}
-      <DeskObject
-        bounds={ref}
-        rotate={-4}
-        delay={0.2}
-        className="left-[6%] top-[16%] w-52 bg-[oklch(0.86_0.12_88)] p-5 md:left-[10%] md:top-[18%] md:w-64"
+      <motion.div
+        className="absolute inset-0 origin-bottom"
+        style={{ rotateX: tilt, scale: mapScale }}
       >
-        <p className="font-prose text-[1.15rem] italic leading-snug text-ink md:text-[1.35rem]">
-          I build fast, considered interfaces for fintech, healthcare and commerce.
-        </p>
-        <p className="type-meta mt-4 text-ink/60">Pick anything up.</p>
-      </DeskObject>
+        <TerrainCanvas
+          animate={!reduced}
+          readoutClassName="hidden md:block right-[clamp(1.15rem,4vw,4rem)] bottom-10"
+        />
+      </motion.div>
 
-      {/* Clock */}
-      <DeskObject
-        bounds={ref}
-        rotate={0}
-        delay={0.35}
-        className="right-[8%] top-[15%] rounded-[4px] bg-paper p-4 md:right-[12%] md:top-[18%]"
-      >
-        <Clock />
-      </DeskObject>
+      <motion.div className="absolute inset-0" style={{ opacity: fade }}>
+        {/* The name, printed into the map under everything else. */}
+        <h1 className="pointer-events-none absolute inset-x-0 bottom-[13svh] select-none text-center md:bottom-[15svh]">
+          <HeroTitleSr />
+          <span aria-hidden className="type-mega block">
+            Efe Aizesogie
+          </span>
+        </h1>
 
-      {/* Business card */}
-      <DeskObject
-        bounds={ref}
-        rotate={6}
-        delay={0.5}
-        className="bottom-[34%] right-[6%] w-56 rounded-[3px] bg-ink p-5 text-paper md:bottom-[36%] md:right-[30%] md:w-72"
-      >
-        <p className="font-display text-xl font-semibold tracking-tight">Efe Aizesogie</p>
-        <p className="type-meta mt-1 text-paper/70">Frontend Engineer</p>
-        <a
-          href={`mailto:${links.email}`}
-          onPointerDown={(e) => e.stopPropagation()}
-          className="type-meta mt-6 block text-signal hover:underline"
-        >
-          {links.email}
-        </a>
-      </DeskObject>
+        <div className="absolute bottom-6 left-1/2 z-[5] -translate-x-1/2 md:bottom-8">
+          <HeroLinks />
+        </div>
 
-      {/* Project printouts */}
-      {prints.map((p, i) => (
+        {/* Sticky note */}
         <DeskObject
-          key={p!.slug}
           bounds={ref}
-          rotate={[-7, 3, -2][i]!}
-          delay={0.6 + i * 0.12}
-          className={`${
-            [
-              "left-[4%] top-[50%] md:left-[30%] md:top-[14%]",
-              "hidden md:block md:left-[54%] md:top-[30%]",
-              "hidden md:block md:left-[6%] md:top-[52%]",
-            ][i]
-          } w-56 bg-white p-2.5 pb-3 md:w-64`}
+          rotate={-4}
+          delay={0.2}
+          className="left-[5%] top-[13%] w-48 bg-[oklch(0.86_0.12_88)] p-4 md:left-[8%] md:top-[20%] md:w-64 md:p-5"
         >
-          <img
-            src={printShots[i]}
-            alt={`${p!.title} interface`}
-            draggable={false}
-            className="aspect-[16/10] w-full object-cover object-left-top"
-          />
+          <p className="font-prose text-[1.05rem] italic leading-snug text-ink md:text-[1.35rem]">
+            I build fast, considered interfaces for fintech, healthcare and commerce.
+          </p>
+          <p className="type-meta mt-4 text-ink/60">Pick anything up.</p>
+        </DeskObject>
+
+        {/* Clock */}
+        <DeskObject
+          bounds={ref}
+          rotate={3}
+          delay={0.35}
+          className="right-[5%] top-[16%] rounded-[4px] bg-paper p-3 md:right-[7%] md:top-[40%] md:p-4"
+        >
+          <Clock />
+        </DeskObject>
+
+        {/* Business card */}
+        <DeskObject
+          bounds={ref}
+          rotate={-6}
+          delay={0.5}
+          className="hidden w-72 rounded-[3px] bg-ink p-5 text-paper md:left-[9%] md:top-[50%] md:block"
+        >
+          <p className="font-display text-xl font-semibold tracking-tight">Efe Aizesogie</p>
+          <p className="type-meta mt-1 text-paper/70">Frontend Engineer</p>
           <a
-            href="#work"
+            href={`mailto:${links.email}`}
             onPointerDown={(e) => e.stopPropagation()}
-            className="mt-2 block font-display text-base font-semibold tracking-tight text-ink hover:text-signal"
+            className="type-meta mt-6 block text-signal hover:underline"
           >
-            {p!.title}
+            {links.email}
           </a>
         </DeskObject>
-      ))}
+
+        {/* Project printouts */}
+        {PRINTS.map((print, i) => {
+          const project = featuredProjects.find((p) => p.slug === print.slug);
+          if (!project) return null;
+          return (
+            <DeskObject
+              key={print.slug}
+              bounds={ref}
+              rotate={print.rotate}
+              delay={0.6 + i * 0.12}
+              className={`${print.place} w-44 bg-white p-2 pb-2.5 md:w-72 md:p-2.5 md:pb-3`}
+            >
+              <img
+                src={print.shot}
+                alt={`${project.title} interface`}
+                draggable={false}
+                className="aspect-[16/10] w-full object-cover object-left-top"
+              />
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="Visit"
+                onPointerDown={(e) => e.stopPropagation()}
+                className="mt-2 flex items-center justify-between font-display text-sm font-semibold tracking-tight text-ink hover:text-signal md:text-base"
+              >
+                {project.title}
+                <span aria-hidden>↗</span>
+              </a>
+            </DeskObject>
+          );
+        })}
+      </motion.div>
     </section>
   );
 }

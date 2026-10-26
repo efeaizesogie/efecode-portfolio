@@ -17,7 +17,7 @@ export const HEROES = {
   current: { label: "Current", Component: Hero },
   terrain: { label: "A · Terrain", Component: HeroTerrain },
   type: { label: "B · Type", Component: HeroType },
-  desk: { label: "C · Desk", Component: HeroDesk },
+  desk: { label: "A+C · Terrain desk", Component: HeroDesk },
   monolith: { label: "D · Monolith", Component: HeroMonolith },
 } satisfies Record<string, { label: string; Component: ComponentType }>;
 

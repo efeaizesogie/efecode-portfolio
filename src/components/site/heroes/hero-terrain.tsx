@@ -50,7 +50,13 @@ function fbm(x: number, y: number, z: number) {
 const STEP = 0.11;
 const SUMMIT = 0.85;
 
-function TerrainCanvas({ animate }: { animate: boolean }) {
+export function TerrainCanvas({
+  animate,
+  readoutClassName = "right-[clamp(1.15rem,4vw,4rem)] top-24 md:top-28",
+}: {
+  animate: boolean;
+  readoutClassName?: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
 
@@ -257,7 +263,7 @@ function TerrainCanvas({ animate }: { animate: boolean }) {
       <span
         ref={readoutRef}
         aria-hidden
-        className="type-meta absolute right-[clamp(1.15rem,4vw,4rem)] top-24 whitespace-pre text-ink-soft md:top-28"
+        className={`type-meta absolute whitespace-pre text-ink-soft ${readoutClassName}`}
       >
         {`${ORIGIN.lat.toFixed(4)}° N   ${ORIGIN.lon.toFixed(4)}° E`}
       </span>
