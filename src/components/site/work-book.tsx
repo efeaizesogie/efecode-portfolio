@@ -7,12 +7,14 @@
  * The original slab layout lives untouched in ./work.tsx.
  */
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useScroll,
   useTransform,
   useReducedMotion,
+  useMotionValueEvent,
+  useInView,
   type MotionValue,
 } from "motion/react";
 import { featuredProjects, type Project } from "@/lib/portfolio";
@@ -63,6 +65,7 @@ function Page({
   progress,
   theme,
   turns,
+  active,
   children,
 }: {
   i: number;
@@ -70,6 +73,7 @@ function Page({
   progress: MotionValue<number>;
   theme: Theme;
   turns: boolean;
+  active: boolean;
   children: ReactNode;
 }) {
   // How many pages sit on top of this one, as a continuous value.
@@ -81,11 +85,14 @@ function Page({
   const turn = useTransform(progress, (p) => (turns ? turnOf(p, i) : 0));
 
   const rotateX = useTransform(turn, [0, 1], [0, 180]);
-  const y = useTransform(depth, (d) => `${Math.min(d, 3) * -1.6}%`);
-  const scale = useTransform(depth, (d) => 1 - Math.min(d, 3) * 0.045);
+  // Pages underneath shrink from the bottom edge so they peek out below,
+  // like the block of a book.
+  const y = useTransform(depth, (d) => Math.min(d, 3) * 11);
+  const scale = useTransform(depth, (d) => 1 - Math.min(d, 3) * 0.035);
   const opacity = useTransform(
     [depth, turn] as MotionValue<number>[],
-    ([d = 0, t = 0]: number[]) => (d > 3.2 ? 0 : 1) * (t > 0.6 ? Math.max(0, 1 - (t - 0.6) / 0.25) : 1),
+    ([d = 0, t = 0]: number[]) =>
+      (d > 3.2 ? 0 : 1) * (t > 0.6 ? Math.max(0, 1 - (t - 0.6) / 0.25) : 1),
   );
   // Shadow cast by the pages above; lifts as they turn away.
   const shade = useTransform(depth, (d) => Math.min(d, 1) * 0.45);
@@ -98,29 +105,36 @@ function Page({
 
   return (
     <motion.div
-      className="absolute inset-0 origin-top [transform-style:preserve-3d]"
-      style={{ rotateX, y, scale, opacity, zIndex: total - i, pointerEvents }}
+      className="absolute inset-0 origin-bottom"
+      style={{ y, scale, opacity, zIndex: total - i, pointerEvents }}
     >
-      <div
-        className={`absolute inset-0 overflow-hidden rounded-[6px] shadow-[0_30px_80px_-30px_rgb(0_0_0/0.65)] [backface-visibility:hidden] ${theme.page}`}
+      <motion.div
+        className="absolute inset-0 origin-top [transform-style:preserve-3d]"
+        style={{ rotateX }}
       >
-        {children}
-        <motion.div
+        <div
+          className={`grain absolute inset-0 overflow-hidden rounded-[6px] shadow-[0_30px_80px_-30px_rgb(0_0_0/0.65)] [backface-visibility:hidden] ${theme.page}`}
+        >
+          <div inert={!active} className="h-full">
+            {children}
+          </div>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-black"
+            style={{ opacity: shade }}
+          />
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white to-transparent"
+            style={{ opacity: sheen }}
+          />
+        </div>
+        {/* Verso — the back of the leaf, seen once it passes the hinge. */}
+        <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-black"
-          style={{ opacity: shade }}
+          className={`grain absolute inset-0 rounded-[6px] [backface-visibility:hidden] [transform:rotateX(180deg)] ${theme.verso}`}
         />
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white to-transparent"
-          style={{ opacity: sheen }}
-        />
-      </div>
-      {/* Verso — the back of the leaf, seen once it passes the hinge. */}
-      <div
-        aria-hidden
-        className={`grain absolute inset-0 rounded-[6px] [backface-visibility:hidden] [transform:rotateX(180deg)] ${theme.verso}`}
-      />
+      </motion.div>
     </motion.div>
   );
 }
@@ -161,10 +175,7 @@ function Cover({ count }: { count: number }) {
 
 function ProjectPage({ project, theme, page }: { project: Project; theme: Theme; page: number }) {
   return (
-    <article
-      className="flex h-full flex-col p-5 md:p-10"
-      aria-labelledby={`book-${project.slug}`}
-    >
+    <article className="flex h-full flex-col p-5 md:p-10" aria-labelledby={`book-${project.slug}`}>
       <RunningHead
         left={`No. ${project.index} — ${project.discipline}`}
         right={`p. ${String(page).padStart(2, "0")}`}
@@ -190,19 +201,30 @@ function ProjectPage({ project, theme, page }: { project: Project; theme: Theme;
                 ["Solution", project.solution],
               ] as const
             ).map(([label, body]) => (
-              <div key={label} className={`grid grid-cols-[5.5rem_1fr] gap-4 border-t pt-3 ${theme.rule}`}>
+              <div
+                key={label}
+                className={`grid grid-cols-[5.5rem_1fr] gap-4 border-t pt-3 ${theme.rule}`}
+              >
                 <dt className={`type-label !text-[0.68rem] ${theme.muted}`}>{label}</dt>
-                <dd className="font-prose text-[0.98rem] leading-snug line-clamp-4">{body}</dd>
+                <dd className="font-prose text-[0.98rem] leading-snug line-clamp-4 xl:line-clamp-none">
+                  {body}
+                </dd>
               </div>
             ))}
           </dl>
-          <div className={`mt-3 grid gap-1 border-t pt-3 md:grid-cols-[5.5rem_1fr] md:gap-4 ${theme.rule}`}>
+          <div
+            className={`mt-3 grid gap-1 border-t pt-3 md:grid-cols-[5.5rem_1fr] md:gap-4 ${theme.rule}`}
+          >
             <p className={`type-label !text-[0.68rem] ${theme.muted}`}>Outcome</p>
-            <p className="font-prose text-[0.98rem] leading-snug line-clamp-3">{project.outcome}</p>
+            <p className="font-prose text-[0.98rem] leading-snug line-clamp-3 xl:line-clamp-none">
+              {project.outcome}
+            </p>
           </div>
 
           <div className="mt-auto pt-4">
-            <p className={`type-meta hidden md:block ${theme.muted}`}>{project.stack.join(" · ")}</p>
+            <p className={`type-meta hidden md:block ${theme.muted}`}>
+              {project.stack.join(" · ")}
+            </p>
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2">
               <a
                 href={project.live}
@@ -284,12 +306,36 @@ export function WorkBook() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   // One unit per turnable page, plus a short rest on the endpaper.
   const progress = useTransform(scrollYProgress, [0, 1], [0, turnable + 0.3]);
-  const counter = useTransform(progress, (p) => {
-    const n = Math.min(projects.length, Math.max(1, Math.floor(p - REST + 1)));
-    return `${String(n).padStart(2, "0")} / ${String(projects.length).padStart(2, "0")}`;
+
+  // The page currently lying open: how many pages have turned past halfway.
+  const [current, setCurrent] = useState(0);
+  useMotionValueEvent(progress, "change", (p) => {
+    let n = 0;
+    for (let k = 0; k < turnable; k++) if (turnOf(p, k) >= 0.5) n++;
+    setCurrent(n);
   });
 
-  const pageBox = "h-[min(80svh,46rem)] w-[min(94vw,76rem)]";
+  // Each page settles at a resting point; snap there so a scroll never
+  // stops on a half-turned leaf. Snapping is only switched on while the
+  // book is on screen so the rest of the site scrolls freely.
+  const restAt = (i: number) => Math.min(i + REST / 2, turnable + 0.3);
+  const inView = useInView(ref, { margin: "-40% 0px -40% 0px" });
+  useEffect(() => {
+    if (reduced) return;
+    const root = document.documentElement;
+    root.style.scrollSnapType = inView ? "y proximity" : "";
+    return () => {
+      root.style.scrollSnapType = "";
+    };
+  }, [inView, reduced]);
+
+  const goTo = (i: number) => {
+    const el = ref.current;
+    if (!el) return;
+    window.scrollTo({ top: el.offsetTop + restAt(i) * window.innerHeight, behavior: "smooth" });
+  };
+
+  const pageBox = "h-[min(74svh,46rem)] w-[min(94vw,76rem)]";
 
   if (reduced) {
     return (
@@ -315,9 +361,17 @@ export function WorkBook() {
       className="grain relative bg-void text-void-foreground"
       style={{ height: `${(turnable + 1.3) * 100}svh` }}
     >
+      {pages.map((pg, i) => (
+        <div
+          key={`snap-${pg.key}`}
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 h-px [scroll-snap-align:start]"
+          style={{ top: `${restAt(i) * 100}svh` }}
+        />
+      ))}
       <div className="sticky top-0 flex h-svh flex-col items-center justify-center overflow-hidden">
         <div className="[perspective:1500px] [perspective-origin:50%_35%]">
-          <div className={`relative mt-[4svh] ${pageBox}`}>
+          <div className={`relative mt-[3svh] ${pageBox}`}>
             {pages.map((pg, i) => (
               <Page
                 key={pg.key}
@@ -326,18 +380,36 @@ export function WorkBook() {
                 progress={progress}
                 theme={pg.theme}
                 turns={i < turnable}
+                active={i === current}
               >
                 {pg.node}
               </Page>
             ))}
           </div>
         </div>
-        <motion.p
-          aria-hidden
-          className="type-label mt-4 text-void-foreground/60 md:mt-5"
-        >
-          {counter}
-        </motion.p>
+        <nav aria-label="Projects" className="relative z-10 mt-12 flex flex-wrap items-center justify-center gap-1">
+          {pages.map((pg, i) => {
+            const label = i === 0 ? "Cover" : i === turnable ? "Fin" : projects[i - 1]?.index;
+            const on = i === current;
+            return (
+              <button
+                key={pg.key}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-current={on ? "page" : undefined}
+                aria-label={i === 0 || i === turnable ? label : projects[i - 1]?.title}
+                data-cursor="Turn"
+                className={`type-label rounded-[2px] px-2 py-1.5 !text-[0.66rem] transition-colors duration-300 ${
+                  on
+                    ? "bg-signal text-signal-ink"
+                    : "text-void-foreground/55 hover:text-void-foreground"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </nav>
       </div>
     </section>
   );
