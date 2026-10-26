@@ -1,9 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Cursor } from "@/components/site/cursor";
 import { Nav } from "@/components/site/nav";
-import { Hero } from "@/components/site/hero";
+import { HeroSlot, type HeroKey } from "@/components/site/heroes";
 import { Work } from "@/components/site/work";
 import { WorkBook } from "@/components/site/work-book";
+
+// Hero on the live site. Options: current, terrain, type, desk, monolith.
+const HERO: HeroKey = "terrain";
 
 // Experiment: flip to false to restore the original slab layout.
 const USE_BOOK_SHOWCASE = true;
@@ -36,7 +39,7 @@ function Index() {
       <Cursor />
       <Nav />
       <main>
-        <Hero />
+        <HeroSlot chosen={HERO} />
         {USE_BOOK_SHOWCASE ? <WorkBook /> : <Work />}
         <About />
         <Stack />
