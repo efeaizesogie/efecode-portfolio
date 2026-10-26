@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { links } from "@/lib/portfolio";
+import { Magnetic } from "../interactions";
 
 export const SIGN_OFF = "Have an idea to discuss? Let's build it properly.";
 
@@ -32,6 +33,24 @@ export function useUkTime() {
     return () => window.clearInterval(id);
   }, []);
   return time;
+}
+
+/* The email link with the same magnetic pull as the original footer: it
+ * leans toward the pointer, then springs back. */
+export function MagneticEmail({
+  className = "",
+  wrapClassName = "",
+}: {
+  className?: string;
+  wrapClassName?: string;
+}) {
+  return (
+    <Magnetic strength={0.2} className={`min-w-0 ${wrapClassName}`}>
+      <a href={`mailto:${links.email}`} data-cursor="Email" className={`inline-block ${className}`}>
+        {links.email}
+      </a>
+    </Magnetic>
+  );
 }
 
 export function CopyEmail({ className = "" }: { className?: string }) {

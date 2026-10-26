@@ -16,6 +16,8 @@ import { FooterSheet } from "./footer/sheet";
 import { FooterNight } from "./footer/night";
 import { FooterPostcard } from "./footer/postcard";
 
+const FooterPostcardDark = () => <FooterPostcard dark />;
+
 const QUOTES = {
   current: { label: "Current", Component: Testimonials },
   spotlight: { label: "T1 · Spotlight", Component: QuotesSpotlight },
@@ -28,6 +30,7 @@ const FOOTERS = {
   sheet: { label: "F1 · Contact sheet", Component: FooterSheet },
   night: { label: "F2 · Night survey", Component: FooterNight },
   postcard: { label: "F3 · Postcard", Component: FooterPostcard },
+  "postcard-dark": { label: "F3b · Postcard on dark", Component: FooterPostcardDark },
 };
 
 const QUOTES_CHOSEN: keyof typeof QUOTES = "current";

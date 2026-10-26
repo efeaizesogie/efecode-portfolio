@@ -7,9 +7,8 @@
  * then the thin closing bar.
  */
 
-import { links } from "@/lib/portfolio";
 import { RevealText } from "../motion-primitives";
-import { CONTACT_LINKS, CopyEmail, FooterBar, SIGN_OFF } from "./shared";
+import { CONTACT_LINKS, CopyEmail, FooterBar, SIGN_OFF, MagneticEmail } from "./shared";
 
 export function FooterSheet() {
   return (
@@ -22,13 +21,7 @@ export function FooterSheet() {
         <ul className="mt-14 border-t border-ink/40 md:mt-20">
           <li className="grid grid-cols-[6rem_1fr] items-center gap-4 border-b border-rule py-5 md:grid-cols-[10rem_1fr_auto] md:py-7">
             <span className="type-label text-ink-soft">Email</span>
-            <a
-              href={`mailto:${links.email}`}
-              data-cursor="Email"
-              className="type-title min-w-0 [overflow-wrap:anywhere] text-signal transition-colors hover:text-ink"
-            >
-              {links.email}
-            </a>
+            <MagneticEmail className="type-title min-w-0 [overflow-wrap:anywhere] text-signal transition-colors hover:text-ink" />
             <CopyEmail className="col-start-2 justify-self-start border-ink/25 text-ink hover:border-signal hover:text-signal md:col-start-auto md:justify-self-end" />
           </li>
           {CONTACT_LINKS.map((l) => (

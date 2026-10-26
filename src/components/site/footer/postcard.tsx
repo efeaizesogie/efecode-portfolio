@@ -4,13 +4,14 @@
  * Footer option F3 — Postcard.
  * Contact laid out as a postcard on the desk: a short note on the left, the
  * email and profiles on the address lines, and a postmark carrying today's
- * date and the UK time.
+ * date and the UK time. `dark` sets the same card on black, over the live
+ * contour map in light lines.
  */
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { links } from "@/lib/portfolio";
-import { CONTACT_LINKS, CopyEmail, FooterBar, useUkTime } from "./shared";
+import { TerrainCanvas } from "../terrain";
+import { CONTACT_LINKS, CopyEmail, FooterBar, useUkTime, MagneticEmail } from "./shared";
 
 function Postmark() {
   const time = useUkTime();
@@ -54,17 +55,34 @@ function Postmark() {
   );
 }
 
-export function FooterPostcard() {
+export function FooterPostcard({ dark = false }: { dark?: boolean }) {
   const reduced = useReducedMotion();
   return (
-    <section id="contact" data-contour className="pt-20 md:pt-32">
-      <div className="shell">
+    <section
+      id="contact"
+      {...(dark ? {} : { "data-contour": "" })}
+      className={
+        dark
+          ? "relative overflow-hidden bg-void pt-20 text-void-foreground md:pt-32"
+          : "pt-20 md:pt-32"
+      }
+    >
+      {dark && (
+        <div aria-hidden className="absolute inset-0 opacity-80">
+          <TerrainCanvas animate={!reduced} readout={false} tone="light" strength={0.7} />
+        </div>
+      )}
+      <div className="shell relative">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 30, rotate: -4 }}
           whileInView={{ opacity: 1, y: 0, rotate: -1.5 }}
           viewport={{ once: true, margin: "-10% 0px" }}
           transition={{ type: "spring", stiffness: 120, damping: 18 }}
-          className="mx-auto grid max-w-[64rem] overflow-hidden rounded-[4px] bg-[oklch(0.975_0.006_84)] shadow-[0_40px_80px_-40px_rgb(0_0_0/0.55)] ring-1 ring-ink/10 md:grid-cols-[1.1fr_1fr]"
+          className={`mx-auto grid max-w-[64rem] overflow-hidden rounded-[4px] bg-[oklch(0.975_0.006_84)] ring-1 ring-ink/10 md:grid-cols-[1.1fr_1fr] ${
+            dark
+              ? "shadow-[0_50px_100px_-30px_rgb(0_0_0/0.9)]"
+              : "shadow-[0_40px_80px_-40px_rgb(0_0_0/0.55)]"
+          }`}
         >
           <div className="p-7 md:p-12">
             <h2 className="font-prose text-[clamp(1.8rem,3.4vw,2.8rem)] italic leading-[1.15] text-ink">
@@ -90,13 +108,7 @@ export function FooterPostcard() {
 
             <ul className="mt-8">
               <li className="flex items-center justify-between gap-3 border-b border-ink/20 py-3">
-                <a
-                  href={`mailto:${links.email}`}
-                  data-cursor="Email"
-                  className="font-display text-base font-semibold tracking-tight text-signal [overflow-wrap:anywhere] hover:text-ink md:text-lg"
-                >
-                  {links.email}
-                </a>
+                <MagneticEmail className="font-display text-base font-semibold tracking-tight text-signal [overflow-wrap:anywhere] hover:text-ink md:text-lg" />
                 <CopyEmail className="shrink-0 border-ink/25 text-ink hover:border-signal hover:text-signal" />
               </li>
               {CONTACT_LINKS.map((l) => (
@@ -117,8 +129,8 @@ export function FooterPostcard() {
         </motion.div>
       </div>
 
-      <div className="mt-20 md:mt-28">
-        <FooterBar />
+      <div className="relative mt-20 md:mt-28">
+        <FooterBar tone={dark ? "light" : "ink"} />
       </div>
     </section>
   );

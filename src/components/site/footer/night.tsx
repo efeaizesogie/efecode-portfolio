@@ -7,10 +7,9 @@
  */
 
 import { useReducedMotion } from "motion/react";
-import { links } from "@/lib/portfolio";
 import { RevealText } from "../motion-primitives";
 import { TerrainCanvas } from "../terrain";
-import { CONTACT_LINKS, CopyEmail, FooterBar, SIGN_OFF } from "./shared";
+import { CONTACT_LINKS, CopyEmail, FooterBar, SIGN_OFF, MagneticEmail } from "./shared";
 
 export function FooterNight() {
   const reduced = useReducedMotion();
@@ -29,13 +28,7 @@ export function FooterNight() {
         </h2>
 
         <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4 md:mt-16">
-          <a
-            href={`mailto:${links.email}`}
-            data-cursor="Email"
-            className="font-display text-[clamp(1.5rem,5vw,4.4rem)] font-semibold leading-none tracking-[-0.03em] text-signal [overflow-wrap:anywhere] transition-colors hover:text-void-foreground"
-          >
-            {links.email}
-          </a>
+          <MagneticEmail className="font-display text-[clamp(1.5rem,5vw,4.4rem)] font-semibold leading-none tracking-[-0.03em] text-signal [overflow-wrap:anywhere] transition-colors hover:text-void-foreground" />
           <CopyEmail className="border-void-foreground/30 text-void-foreground hover:border-signal hover:text-signal" />
         </div>
 
