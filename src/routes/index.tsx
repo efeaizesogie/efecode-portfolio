@@ -2,11 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Cursor } from "@/components/site/cursor";
 import { Hero } from "@/components/site/hero";
 import { ContourBackdrop } from "@/components/site/terrain";
-import { Work } from "@/components/site/work";
-import { WorkBook } from "@/components/site/work-book";
+import { WorkPicker, WorkSlot, type WorkKey } from "@/components/site/work-options";
 
-// Experiment: flip to false to restore the original slab layout.
-const USE_BOOK_SHOWCASE = true;
+// Selected Work on the live site: current, index, sheets, transect, sites, paper.
+const WORK_LAYOUT: WorkKey = "current";
 import { About } from "@/components/site/about";
 import { Nav } from "@/components/site/nav";
 import { Stack } from "@/components/site/stack";
@@ -38,9 +37,10 @@ function Index() {
       <Cursor />
       <ContourBackdrop />
       <Nav />
+      <WorkPicker chosen={WORK_LAYOUT} />
       <main>
         <Hero />
-        {USE_BOOK_SHOWCASE ? <WorkBook /> : <Work />}
+        <WorkSlot chosen={WORK_LAYOUT} />
         <About />
         <Stack />
         <Experience />

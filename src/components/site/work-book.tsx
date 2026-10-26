@@ -19,40 +19,7 @@ import {
 } from "motion/react";
 import { featuredProjects, type Project } from "@/lib/portfolio";
 import { RevealText } from "./motion-primitives";
-
-/* Short copy and screenshots for the book. Kept here so the experiment
- * stays self-contained. */
-const shotsFor = (slug: string) => [1, 2, 3, 4].map((n) => `/work/${slug}/${n}.jpg`);
-
-const BOOK: Record<string, { blurb: string; shots: string[] }> = {
-  honatrix: {
-    blurb:
-      "A corporate site for a Nigerian construction firm, built to show the scale of its builds and turn visitors into quote requests.",
-    shots: shotsFor("honatrix"),
-  },
-  "traders-launch": {
-    blurb:
-      "A prop-trading evaluation platform where pricing, payouts and risk rules read at a glance.",
-    shots: shotsFor("traders-launch"),
-  },
-  clinq: {
-    blurb: "A patient-first healthcare portal for booking specialists and keeping records in sync.",
-    shots: shotsFor("clinq"),
-  },
-  "simple-payroll": {
-    blurb:
-      "Payroll for small teams: salary runs, deductions and employee records in a few clear screens.",
-    shots: shotsFor("simple-payroll"),
-  },
-  fundedfun: {
-    blurb: "An onboarding-first trading challenge with plain-language rules and live charts.",
-    shots: shotsFor("fundedfun"),
-  },
-  veescents: {
-    blurb: "A fragrance storefront that leads with curation and keeps the path to checkout short.",
-    shots: shotsFor("veescents"),
-  },
-};
+import { BOOK } from "./work-options/data";
 
 type Theme = { page: string; muted: string; pill: string; verso: string };
 
@@ -72,6 +39,29 @@ const THEMES: Theme[] = [
   {
     page: "bg-[oklch(0.25_0.006_60)] text-void-foreground",
     muted: "text-void-foreground/65",
+    pill: "bg-signal text-signal-ink",
+    verso: "bg-[oklch(0.2_0.006_60)]",
+  },
+];
+
+/* Paper variant: the book sits on the page's paper and contours instead of
+ * a dark slab, with paper-toned cards and one ink card for rhythm. */
+const PAPER_THEMES: Theme[] = [
+  {
+    page: "bg-[oklch(0.975_0.006_84)] text-ink ring-1 ring-inset ring-ink/15",
+    muted: "text-ink-soft",
+    pill: "bg-signal text-signal-ink",
+    verso: "bg-[oklch(0.9_0.012_84)]",
+  },
+  {
+    page: "bg-[oklch(0.905_0.014_84)] text-ink ring-1 ring-inset ring-ink/15",
+    muted: "text-ink-soft",
+    pill: "bg-ink text-paper",
+    verso: "bg-[oklch(0.84_0.012_84)]",
+  },
+  {
+    page: "bg-ink text-paper",
+    muted: "text-paper/65",
     pill: "bg-signal text-signal-ink",
     verso: "bg-[oklch(0.2_0.006_60)]",
   },
@@ -254,7 +244,11 @@ function Page({
       style={{ y, scale, opacity, zIndex: total - i }}
     >
       {turning ? (
-        <div aria-hidden inert className="absolute inset-0 [perspective:1500px] [perspective-origin:50%_0%]">
+        <div
+          aria-hidden
+          inert
+          className="absolute inset-0 [perspective:1500px] [perspective-origin:50%_0%]"
+        >
           <Strip k={0} turn={turn} theme={theme} content={children} />
         </div>
       ) : (
@@ -274,11 +268,14 @@ function Page({
   );
 }
 
-export function WorkBook() {
+export function WorkBook({ paper = false }: { paper?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const projects = featuredProjects;
-  const themeOf = (i: number) => THEMES[i % THEMES.length] ?? THEMES[0]!;
+  const themes = paper ? PAPER_THEMES : THEMES;
+  const themeOf = (i: number) => themes[i % themes.length] ?? themes[0]!;
+  const sectionClass = paper ? "relative text-ink" : "grain relative bg-void text-void-foreground";
+  const contour = paper ? { "data-contour": "" } : {};
   const turnable = projects.length - 1;
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
@@ -319,7 +316,9 @@ export function WorkBook() {
       <h2 className="type-display">
         <RevealText text="Selected Work" stagger={0.05} />
       </h2>
-      <p className="type-prose mx-auto mt-4 max-w-[40ch] text-void-foreground/70">
+      <p
+        className={`type-prose mx-auto mt-4 max-w-[40ch] ${paper ? "text-ink/70" : "text-void-foreground/70"}`}
+      >
         Six projects, one page each.
       </p>
     </div>
@@ -327,7 +326,7 @@ export function WorkBook() {
 
   if (reduced) {
     return (
-      <section id="work" className="grain bg-void pb-20 text-void-foreground md:pb-32">
+      <section id="work" {...contour} className={`${sectionClass} pb-20 md:pb-32`}>
         {heading}
         <div className="flex flex-col items-center gap-8">
           {projects.map((p, i) => (
@@ -344,7 +343,7 @@ export function WorkBook() {
   }
 
   return (
-    <section id="work" className="grain relative bg-void text-void-foreground">
+    <section id="work" {...contour} className={sectionClass}>
       {heading}
       <div ref={ref} className="relative" style={{ height: `${(turnable + 1.4) * 100}svh` }}>
         {projects.map((p, i) => (
@@ -387,7 +386,9 @@ export function WorkBook() {
                   className={`type-label rounded-[2px] px-2 py-1.5 !text-[0.66rem] transition-colors duration-300 ${
                     on
                       ? "bg-signal text-signal-ink"
-                      : "text-void-foreground/55 hover:text-void-foreground"
+                      : paper
+                        ? "text-ink/55 hover:text-ink"
+                        : "text-void-foreground/55 hover:text-void-foreground"
                   }`}
                 >
                   {p.index}

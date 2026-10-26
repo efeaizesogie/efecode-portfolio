@@ -293,8 +293,22 @@ export function ContourBackdrop() {
       }
       setActive(seen.size > 0);
     });
-    document.querySelectorAll("[data-contour]").forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    const scan = () => {
+      io.disconnect();
+      seen.clear();
+      document.querySelectorAll("[data-contour]").forEach((el) => io.observe(el));
+    };
+    scan();
+    // Sections can be swapped after mount; re-scan when the page changes shape.
+    const mo = new MutationObserver((records) => {
+      if (records.some((r) => r.addedNodes.length || r.removedNodes.length)) scan();
+    });
+    const main = document.querySelector("main");
+    if (main) mo.observe(main, { childList: true });
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, []);
 
   return (
