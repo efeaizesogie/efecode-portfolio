@@ -11,6 +11,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "re
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
+import { MaybeLink } from "./maybe-link";
 import { ViewAllProjects } from "./view-all";
 
 const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
@@ -32,11 +33,8 @@ function Station({ p, i }: { p: WorkItem; i: number }) {
           Sta. {i}+00 · {p.year}
         </span>
       </div>
-      <a
+      <MaybeLink
         href={p.live}
-        target="_blank"
-        rel="noreferrer"
-        data-cursor="Visit"
         className="mt-4 block overflow-hidden rounded-[3px] bg-white p-1.5 shadow-[0_24px_50px_-30px_rgb(0_0_0/0.6)]"
       >
         {p.video ? (
@@ -59,17 +57,19 @@ function Station({ p, i }: { p: WorkItem; i: number }) {
             className="aspect-[16/10] w-full object-cover object-left-top"
           />
         )}
-      </a>
+      </MaybeLink>
       <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
         <p className="type-prose max-w-[46ch] !text-[1rem] !leading-snug text-ink/75">{p.blurb}</p>
-        <a
-          href={p.live}
-          target="_blank"
-          rel="noreferrer"
-          className="type-label link-underline shrink-0 text-signal"
-        >
-          Visit ↗
-        </a>
+        {p.live && (
+          <a
+            href={p.live}
+            target="_blank"
+            rel="noreferrer"
+            className="type-label link-underline shrink-0 text-signal"
+          >
+            Visit ↗
+          </a>
+        )}
       </div>
     </article>
   );

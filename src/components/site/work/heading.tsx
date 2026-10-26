@@ -13,7 +13,7 @@ export function WorkHeading({ aside }: { aside?: ReactNode }) {
           <RevealText text="Selected Work" stagger={0.05} />
         </h2>
         <p className="type-prose mt-4 max-w-[40ch] text-ink/70">
-          Six projects, from construction to fintech to fragrance.
+          Six projects, from 3D fashion to Web3 to healthcare.
         </p>
       </div>
       {aside}

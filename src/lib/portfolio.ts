@@ -1,23 +1,63 @@
+/* The six projects in Selected Work. `live` or `repo` is left out when
+ * there's no public site or the repo is private. The longer write-up fields
+ * are kept where they exist but no longer shown. */
 export type Project = {
   slug: string;
   index: string;
   title: string;
   year: string;
-  role: string;
-  discipline: string;
   stack: string[];
-  problem: string;
-  solution: string;
-  outcome: string;
   image: string;
-  live: string;
-  repo: string;
+  live?: string | undefined;
+  repo?: string | undefined;
+  role?: string | undefined;
+  discipline?: string | undefined;
+  problem?: string | undefined;
+  solution?: string | undefined;
+  outcome?: string | undefined;
 };
 
 export const featuredProjects: Project[] = [
   {
-    slug: "honatrix",
+    slug: "verto",
     index: "01",
+    title: "Verto",
+    year: "2026",
+    stack: ["React", "Three.js", "GSAP", "TS"],
+    image: "/work/verto/1.jpg",
+    live: "https://verto-orcin-phi.vercel.app/",
+  },
+  {
+    slug: "furlio",
+    index: "02",
+    title: "Furlio",
+    year: "2026",
+    stack: ["HTML", "CSS", "JS"],
+    image: "/work/furlio/1.jpg",
+  },
+  {
+    slug: "scamtrail",
+    index: "03",
+    title: "ScamTrail",
+    year: "2026",
+    stack: ["Next.js", "React", "Tailwind", "GSAP", "TS"],
+    image: "/work/scamtrail/1.jpg",
+    live: "https://scamtrail.vercel.app/",
+    repo: "https://github.com/efeaizesogie/scamtrail",
+  },
+  {
+    slug: "applyready",
+    index: "04",
+    title: "ApplyReady",
+    year: "2026",
+    stack: ["Next.js", "React", "Tailwind", "TS", "Supabase"],
+    image: "/work/applyready/1.jpg",
+    live: "https://applyready-gamma.vercel.app/",
+    repo: "https://github.com/efeaizesogie/applyready",
+  },
+  {
+    slug: "honatrix",
+    index: "05",
     title: "Honatrix",
     year: "2025",
     role: "Frontend Developer",
@@ -34,27 +74,8 @@ export const featuredProjects: Project[] = [
     repo: "https://github.com/efeaizesogie/Honatrix",
   },
   {
-    slug: "traders-launch",
-    index: "02",
-    title: "Traders Launch Reimagined",
-    year: "2025",
-    role: "Frontend Developer",
-    discipline: "Fintech / Prop Trading",
-    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
-    problem:
-      "Futures evaluation platforms bury their rules in fine print, so traders can never tell what a challenge actually costs them.",
-    solution:
-      "A rebuilt evaluation flow where pricing, payout cadence and risk parameters are first-class interface objects, wired through typed routing and a component system tuned for dense financial data.",
-    outcome:
-      "One-time fee evaluations, daily payouts, no payout caps and up to 80% profit split, all legible at a glance.",
-    image: "/work/traderslaunch.png",
-    live: "https://traders-launch-reimagined.vercel.app/",
-    repo: "https://github.com/efeaizesogie/Traders-Launch-Reimagined",
-  },
-
-  {
     slug: "clinq",
-    index: "03",
+    index: "06",
     title: "Clinq",
     year: "2025",
     role: "Frontend Developer",
@@ -68,60 +89,6 @@ export const featuredProjects: Project[] = [
     image: "/work/clinq.png",
     live: "https://clinq-brown.vercel.app/",
     repo: "https://github.com/efeaizesogie/clinq-p",
-  },
-
-  {
-    slug: "simple-payroll",
-    index: "04",
-    title: "Simple Payroll",
-    year: "2024",
-    role: "Frontend Developer",
-    discipline: "HR / Payments",
-    stack: ["React", "TailwindCSS", "JavaScript"],
-    problem:
-      "Small teams run payroll on spreadsheets because the alternatives are enterprise suites nobody asked for.",
-    solution:
-      "A comprehensive payroll service built as a focused React application — salary runs, deductions and employee records reduced to a handful of clear, repeatable screens.",
-    outcome:
-      "A complete payroll workflow delivered end to end with streamlined employee records and automated salary runs.",
-    image: "/work/simple-payroll.png",
-    live: "https://simple-payroll.vercel.app/",
-    repo: "https://github.com/efeaizesogie/simple-payroll",
-  },
-  {
-    slug: "fundedfun",
-    index: "05",
-    title: "FundedFun",
-    year: "2025",
-    role: "Frontend Developer",
-    discipline: "Fintech / Prop Trading",
-    stack: ["React", "TypeScript", "TailwindCSS", "Vite", "TanStack Router"],
-    problem:
-      "Low-cost trading challenges attract first-time traders who are then overwhelmed by charting tools and opaque rule sets.",
-    solution:
-      "An onboarding-forward evaluation platform with instant challenge creation, plain-language rules and embedded TradingView charting that stays performant under live data.",
-    outcome:
-      "Instant evaluations, fair trading rules and clear risk parameters in one uninterrupted surface.",
-    image: "/work/fundedfun.png",
-    live: "https://funded-fun-elevated.vercel.app/",
-    repo: "https://github.com/efeaizesogie/FundedFun-Elevated",
-  },
-  {
-    slug: "veescents",
-    index: "06",
-    title: "Veescents",
-    year: "2024",
-    role: "Frontend Developer",
-    discipline: "Commerce",
-    stack: ["React", "TailwindCSS", "JavaScript"],
-    problem: "Fragrance buyers need to trust authenticity before they trust a checkout flow.",
-    solution:
-      "A modern storefront that leads with the curation — designer, Arabian and niche houses — and keeps the path to purchase short and legible.",
-    outcome:
-      "A seamless shopping experience with fast delivery options across a curated catalogue.",
-    image: "/work/veescents.png",
-    live: "https://veescents-next.vercel.app/",
-    repo: "https://github.com/efeaizesogie/veescents-next",
   },
 ];
 
@@ -143,63 +110,6 @@ export type Experiment = {
 };
 
 export const experiments: Experiment[] = [
-  {
-    title: "Verto",
-    kind: "Concept",
-    year: "2026",
-    stack: "React · Three.js · GSAP · TS",
-    note: "Scroll-driven 3D showroom for a clothing label: five pieces turned in a seamless grey void.",
-    image: "/work/verto/1.jpg",
-    shots: ["/work/verto/1.jpg", "/work/verto/2.jpg", "/work/verto/3.jpg", "/work/verto/4.jpg"],
-    live: "https://verto-orcin-phi.vercel.app/",
-  },
-  {
-    title: "ApplyReady",
-    kind: "Product",
-    year: "2026",
-    stack: "Next.js · React · Tailwind · TS · Supabase",
-    note: "Turns any scholarship, job, admission or grant announcement into a deadline-paced checklist that emails you daily until you submit.",
-    image: "/work/applyready/1.jpg",
-    shots: [
-      "/work/applyready/1.jpg",
-      "/work/applyready/2.jpg",
-      "/work/applyready/3.jpg",
-      "/work/applyready/4.jpg",
-    ],
-    video: "/work/applyready/demo.mp4",
-    poster: "/work/applyready/poster.jpg",
-    live: "https://applyready-gamma.vercel.app/",
-    repo: "https://github.com/efeaizesogie/applyready",
-  },
-  {
-    title: "Furlio",
-    kind: "Concept",
-    year: "2026",
-    stack: "HTML · CSS · JS",
-    note: "Editorial concept site for an architectural furniture studio that draws every piece before it builds it.",
-    image: "/work/furlio/1.jpg",
-    shots: ["/work/furlio/1.jpg", "/work/furlio/2.jpg", "/work/furlio/3.jpg", "/work/furlio/4.jpg"],
-    video: "/work/furlio/demo.mp4",
-    poster: "/work/furlio/poster.jpg",
-  },
-  {
-    title: "ScamTrail",
-    kind: "Product",
-    year: "2026",
-    stack: "Next.js · React · Tailwind · GSAP · TS",
-    note: "Evidence-based due diligence for Web3: search a handle, wallet, contract or domain and see what the evidence says and leaves open.",
-    image: "/work/scamtrail/1.jpg",
-    shots: [
-      "/work/scamtrail/1.jpg",
-      "/work/scamtrail/2.jpg",
-      "/work/scamtrail/3.jpg",
-      "/work/scamtrail/4.jpg",
-    ],
-    video: "/work/scamtrail/demo.mp4",
-    poster: "/work/scamtrail/poster.jpg",
-    live: "https://scamtrail.vercel.app/",
-    repo: "https://github.com/efeaizesogie/scamtrail",
-  },
   {
     title: "Nebula",
     kind: "Landing",
@@ -301,6 +211,70 @@ export const experiments: Experiment[] = [
     ],
     live: "https://payflow-analyzer.vercel.app/",
     repo: "https://github.com/efeaizesogie/payflow-analyzer",
+  },
+  {
+    title: "Traders Launch Reimagined",
+    kind: "Platform",
+    year: "2025",
+    stack: "React · TypeScript · TailwindCSS · Vite · TanStack Router",
+    note: "A prop-trading evaluation platform where pricing, payouts and risk rules read at a glance.",
+    image: "/work/traders-launch/1.jpg",
+    shots: [
+      "/work/traders-launch/1.jpg",
+      "/work/traders-launch/2.jpg",
+      "/work/traders-launch/3.jpg",
+      "/work/traders-launch/4.jpg",
+    ],
+    live: "https://traders-launch-reimagined.vercel.app/",
+    repo: "https://github.com/efeaizesogie/Traders-Launch-Reimagined",
+  },
+  {
+    title: "FundedFun",
+    kind: "Platform",
+    year: "2025",
+    stack: "React · TypeScript · TailwindCSS · Vite · TanStack Router",
+    note: "An onboarding-first trading challenge with plain-language rules and live charts.",
+    image: "/work/fundedfun/1.jpg",
+    shots: [
+      "/work/fundedfun/1.jpg",
+      "/work/fundedfun/2.jpg",
+      "/work/fundedfun/3.jpg",
+      "/work/fundedfun/4.jpg",
+    ],
+    live: "https://funded-fun-elevated.vercel.app/",
+    repo: "https://github.com/efeaizesogie/FundedFun-Elevated",
+  },
+  {
+    title: "Simple Payroll",
+    kind: "Product",
+    year: "2024",
+    stack: "React · TailwindCSS · JavaScript",
+    note: "Payroll for small teams: salary runs, deductions and employee records in a few clear screens.",
+    image: "/work/simple-payroll/1.jpg",
+    shots: [
+      "/work/simple-payroll/1.jpg",
+      "/work/simple-payroll/2.jpg",
+      "/work/simple-payroll/3.jpg",
+      "/work/simple-payroll/4.jpg",
+    ],
+    live: "https://simple-payroll.vercel.app/",
+    repo: "https://github.com/efeaizesogie/simple-payroll",
+  },
+  {
+    title: "Veescents",
+    kind: "Commerce",
+    year: "2024",
+    stack: "React · TailwindCSS · JavaScript",
+    note: "A fragrance storefront that leads with curation and keeps the path to checkout short.",
+    image: "/work/veescents/1.jpg",
+    shots: [
+      "/work/veescents/1.jpg",
+      "/work/veescents/2.jpg",
+      "/work/veescents/3.jpg",
+      "/work/veescents/4.jpg",
+    ],
+    live: "https://veescents-next.vercel.app/",
+    repo: "https://github.com/efeaizesogie/veescents-next",
   },
   {
     title: "Aether",

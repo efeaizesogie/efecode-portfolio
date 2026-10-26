@@ -11,6 +11,7 @@ import type { ReactNode } from "react";
 import { Rise } from "../motion-primitives";
 import { WORK, type WorkItem } from "./data";
 import { WorkHeading } from "./heading";
+import { MaybeLink } from "./maybe-link";
 import { ViewAllProjects } from "./view-all";
 
 /* Two alternating spread layouts on a 12-column grid (desktop). */
@@ -50,15 +51,17 @@ function Sheet({ p, i }: { p: WorkItem; i: number }) {
           </h3>
           <p className="type-prose mt-3 !text-[1rem] !leading-snug text-ink/75">{p.blurb}</p>
           <div className="mt-5 flex items-center gap-5">
-            <a
-              href={p.live}
-              target="_blank"
-              rel="noreferrer"
-              data-cursor="Visit"
-              className="type-label link-underline text-ink hover:text-signal"
-            >
-              Visit ↗
-            </a>
+            {p.live && (
+              <a
+                href={p.live}
+                target="_blank"
+                rel="noreferrer"
+                data-cursor="Visit"
+                className="type-label link-underline text-ink hover:text-signal"
+              >
+                Visit ↗
+              </a>
+            )}
             <span className="type-meta text-ink-soft">{p.year}</span>
           </div>
         </Rise>
@@ -70,13 +73,7 @@ function Sheet({ p, i }: { p: WorkItem; i: number }) {
           delay={n * 0.06}
           className={`${n === 0 ? "col-span-2" : n === 3 ? "hidden md:block" : "col-span-1"} ${layout.shots[n]}`}
         >
-          <a
-            href={p.live}
-            target="_blank"
-            rel="noreferrer"
-            data-cursor="Visit"
-            className="block h-full"
-          >
+          <MaybeLink href={p.live} className="block h-full">
             {n === 0 && p.video ? (
               // A project with a walkthrough leads with it, muted and looping.
               <video
@@ -98,7 +95,7 @@ function Sheet({ p, i }: { p: WorkItem; i: number }) {
                 className="h-full w-full border border-ink/10 bg-white object-cover object-left-top"
               />
             )}
-          </a>
+          </MaybeLink>
         </Rise>
       ))}
     </article>

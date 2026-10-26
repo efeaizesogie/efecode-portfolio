@@ -11,34 +11,42 @@ export const BOOK: Record<
   string,
   { blurb: string; shots: string[]; video?: string; poster?: string }
 > = {
+  verto: {
+    blurb:
+      "Scroll-driven 3D showroom for a clothing label: five pieces turned in a seamless grey void.",
+    shots: shotsFor("verto"),
+  },
+  furlio: {
+    blurb:
+      "Editorial concept site for an architectural furniture studio that draws every piece before it builds it.",
+    shots: shotsFor("furlio"),
+    video: "/work/furlio/demo.mp4",
+    poster: "/work/furlio/poster.jpg",
+  },
+  scamtrail: {
+    blurb:
+      "Evidence-based due diligence for Web3: search a handle, wallet, contract or domain and see what the evidence says and leaves open.",
+    shots: shotsFor("scamtrail"),
+    video: "/work/scamtrail/demo.mp4",
+    poster: "/work/scamtrail/poster.jpg",
+  },
+  applyready: {
+    blurb:
+      "Turns any scholarship, job, admission or grant announcement into a deadline-paced checklist that emails you daily until you submit.",
+    shots: shotsFor("applyready"),
+    video: "/work/applyready/demo.mp4",
+    poster: "/work/applyready/poster.jpg",
+  },
   honatrix: {
     blurb:
       "A corporate site for a Nigerian construction firm, built to show the scale of its builds and turn visitors into quote requests.",
     shots: shotsFor("honatrix"),
-  },
-  "traders-launch": {
-    blurb:
-      "A prop-trading evaluation platform where pricing, payouts and risk rules read at a glance.",
-    shots: shotsFor("traders-launch"),
   },
   clinq: {
     blurb: "A patient-first healthcare portal for booking specialists and keeping records in sync.",
     shots: shotsFor("clinq"),
     video: "/work/clinq/demo.mp4",
     poster: "/work/clinq/poster.jpg",
-  },
-  "simple-payroll": {
-    blurb:
-      "Payroll for small teams: salary runs, deductions and employee records in a few clear screens.",
-    shots: shotsFor("simple-payroll"),
-  },
-  fundedfun: {
-    blurb: "An onboarding-first trading challenge with plain-language rules and live charts.",
-    shots: shotsFor("fundedfun"),
-  },
-  veescents: {
-    blurb: "A fragrance storefront that leads with curation and keeps the path to checkout short.",
-    shots: shotsFor("veescents"),
   },
 };
 
@@ -51,7 +59,7 @@ export type WorkItem = Project & {
 
 export const WORK: WorkItem[] = featuredProjects.map((p) => ({
   ...p,
-  blurb: BOOK[p.slug]?.blurb ?? p.outcome,
+  blurb: BOOK[p.slug]?.blurb ?? p.outcome ?? "",
   shots: BOOK[p.slug]?.shots ?? [p.image],
   video: BOOK[p.slug]?.video,
   poster: BOOK[p.slug]?.poster,
