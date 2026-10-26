@@ -52,12 +52,15 @@ export function TerrainCanvas({
   readout = true,
   readoutClassName = "right-[clamp(1.15rem,4vw,4rem)] top-24 md:top-28",
   strength = 1,
+  tone = "ink",
 }: {
   animate: boolean;
   readout?: boolean;
   readoutClassName?: string;
   /* Multiplies line opacity; below 1 for backdrops behind body text. */
   strength?: number;
+  /* Line colour: ink on paper, or light lines for dark surfaces. */
+  tone?: "ink" | "light";
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
@@ -182,7 +185,7 @@ export function TerrainCanvas({
           ctx.strokeStyle = `oklch(0.605 0.204 33 / ${Math.min(1, 0.45 + (L - SUMMIT) * 0.9) * strength})`;
           ctx.lineWidth = major ? 1.6 : 1.1;
         } else {
-          ctx.strokeStyle = `oklch(0.185 0.006 60 / ${(major ? 0.42 : 0.2) * strength})`;
+          ctx.strokeStyle = `${tone === "light" ? "oklch(0.945 0.008 84" : "oklch(0.185 0.006 60"} / ${(major ? 0.42 : 0.2) * strength})`;
           ctx.lineWidth = major ? 1.2 : 0.8;
         }
         ctx.stroke(p);
@@ -257,7 +260,7 @@ export function TerrainCanvas({
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
-  }, [animate, strength]);
+  }, [animate, strength, tone]);
 
   return (
     <>
