@@ -10,7 +10,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { featuredProjects, links } from "@/lib/portfolio";
+import { links, place } from "@/lib/portfolio";
 import { Magnetic } from "./interactions";
 import { TerrainCanvas } from "./terrain";
 
@@ -65,7 +65,7 @@ function Clock() {
   }, []);
   const parts = now
     ? new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/London",
+        timeZone: place.timeZone,
         hour: "2-digit",
         minute: "2-digit",
         second: "2-digit",
@@ -124,7 +124,7 @@ function Clock() {
         <circle cx="50" cy="50" r="2.5" className="fill-signal" />
       </svg>
       <p className="type-meta mt-2 text-ink-soft">
-        {now ? `${get("hour")}:${get("minute")} UK time` : "UK time"}
+        {now ? `${get("hour")}:${get("minute")} ${place.city}` : place.city}
       </p>
     </div>
   );
@@ -157,21 +157,6 @@ function HeroLinks() {
   );
 }
 
-const PRINTS = [
-  {
-    slug: "honatrix",
-    shot: "/work/honatrix/1.jpg",
-    rotate: -5,
-    place: "left-[6%] top-[33%] md:left-[31%] md:top-[15%]",
-  },
-  {
-    slug: "fundedfun",
-    shot: "/work/fundedfun/1.jpg",
-    rotate: 4,
-    place: "right-[5%] top-[47%] md:left-[56%] md:right-auto md:top-[31%]",
-  },
-];
-
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
@@ -197,17 +182,17 @@ export function Hero() {
       </motion.div>
 
       <motion.div className="absolute inset-0" style={{ opacity: fade }}>
-        {/* The name, printed into the map under everything else. */}
-        <h1 className="pointer-events-none absolute inset-x-0 bottom-[13svh] select-none text-center md:bottom-[15svh]">
-          <span className="sr-only">
-            Efe Aizesogie — EFECODE, frontend engineer building fast, considered interfaces.
-          </span>
-          <span aria-hidden className="type-mega block">
-            Efe Aizesogie
-          </span>
-        </h1>
-
-        <div className="absolute bottom-6 left-1/2 z-[5] -translate-x-1/2 md:bottom-8">
+        {/* The name, printed into the map, with the links under it. One
+            bottom-anchored column so they can never overlap. */}
+        <div className="absolute inset-x-0 bottom-6 z-[5] flex flex-col items-center gap-5 md:bottom-8 md:gap-8">
+          <h1 className="pointer-events-none select-none text-center">
+            <span className="sr-only">
+              Efe Aizesogie — EFECODE, frontend engineer building fast, considered interfaces.
+            </span>
+            <span aria-hidden className="type-mega block">
+              Efe Aizesogie
+            </span>
+          </h1>
           <HeroLinks />
         </div>
 
@@ -239,7 +224,7 @@ export function Hero() {
           bounds={ref}
           rotate={-6}
           delay={0.5}
-          className="hidden w-72 rounded-[3px] bg-ink p-5 text-paper md:left-[9%] md:top-[50%] md:block"
+          className="left-[8%] top-[40%] w-60 rounded-[3px] bg-ink p-5 text-paper md:left-[38%] md:top-[26%] md:w-72"
         >
           <p className="font-display text-xl font-semibold tracking-tight">Efe Aizesogie</p>
           <p className="type-meta mt-1 text-paper/70">Frontend Engineer</p>
@@ -251,39 +236,6 @@ export function Hero() {
             {links.email}
           </a>
         </DeskObject>
-
-        {/* Project printouts */}
-        {PRINTS.map((print, i) => {
-          const project = featuredProjects.find((p) => p.slug === print.slug);
-          if (!project) return null;
-          return (
-            <DeskObject
-              key={print.slug}
-              bounds={ref}
-              rotate={print.rotate}
-              delay={0.6 + i * 0.12}
-              className={`${print.place} w-44 bg-white p-2 pb-2.5 md:w-72 md:p-2.5 md:pb-3`}
-            >
-              <img
-                src={print.shot}
-                alt={`${project.title} interface`}
-                draggable={false}
-                className="aspect-[16/10] w-full object-cover object-left-top"
-              />
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noreferrer"
-                data-cursor="Visit"
-                onPointerDown={(e) => e.stopPropagation()}
-                className="mt-2 flex items-center justify-between font-display text-sm font-semibold tracking-tight text-ink hover:text-signal md:text-base"
-              >
-                {project.title}
-                <span aria-hidden>↗</span>
-              </a>
-            </DeskObject>
-          );
-        })}
       </motion.div>
     </section>
   );

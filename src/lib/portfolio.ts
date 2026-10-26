@@ -64,8 +64,7 @@ export const featuredProjects: Project[] = [
       "Clinic software is built for administrators. Patients get the leftovers: static forms, stale records, phone calls.",
     solution:
       "A patient-centric portal with real-time specialist booking and record synchronisation, fronted by a landing experience choreographed in GSAP so the marketing site feels like the product.",
-    outcome:
-      "Booking, records and clinic management unified into a single modern patient surface.",
+    outcome: "Booking, records and clinic management unified into a single modern patient surface.",
     image: "/work/clinq.png",
     live: "https://clinq-brown.vercel.app/",
     repo: "https://github.com/efeaizesogie/clinq-p",
@@ -115,8 +114,7 @@ export const featuredProjects: Project[] = [
     role: "Frontend Developer",
     discipline: "Commerce",
     stack: ["React", "TailwindCSS", "JavaScript"],
-    problem:
-      "Fragrance buyers need to trust authenticity before they trust a checkout flow.",
+    problem: "Fragrance buyers need to trust authenticity before they trust a checkout flow.",
     solution:
       "A modern storefront that leads with the curation — designer, Arabian and niche houses — and keeps the path to purchase short and legible.",
     outcome:
@@ -255,7 +253,15 @@ export const experience = [
     role: "Geomatics and GIS Specialist",
     place: "Edo, Nigeria",
     body: "Applied ArcGIS for high-precision map creation and spatial analysis supporting data-driven decisions in engineering and environmental projects. Digitised and managed geospatial datasets, collected field data with GPS and total stations, and produced engineering plans and profiles in Civil 3D.",
-    stack: ["ArcGIS", "Remote Sensing", "QGIS", "Google Earth Pro", "Global Mapper", "AutoCAD", "Civil 3D"],
+    stack: [
+      "ArcGIS",
+      "Remote Sensing",
+      "QGIS",
+      "Google Earth Pro",
+      "Global Mapper",
+      "AutoCAD",
+      "Civil 3D",
+    ],
   },
   {
     company: "Balancee",
@@ -323,6 +329,9 @@ export const testimonials = [
     handle: "@nwabuegodstime",
   },
 ];
+
+/* Where the clocks on the site read from: shown as "<time> <city>". */
+export const place = { city: "London", timeZone: "Europe/London" };
 
 export const links = {
   email: "efeaizesogie@gmail.com",

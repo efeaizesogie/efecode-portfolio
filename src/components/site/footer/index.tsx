@@ -4,21 +4,29 @@
  * Footer — the postcard.
  * Contact laid out as a paper postcard on black, over the live contour map in
  * light lines: a short note on the left, the email and profiles on the
- * address lines, and a postmark carrying today's date and the UK time.
+ * address lines, and a postmark carrying today's date and the local time.
  */
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
+import { place } from "@/lib/portfolio";
 import { TerrainCanvas } from "../terrain";
-import { CONTACT_LINKS, CopyEmail, FooterBar, MagneticEmail, SIGN_OFF, useUkTime } from "./shared";
+import {
+  CONTACT_LINKS,
+  CopyEmail,
+  FooterBar,
+  MagneticEmail,
+  SIGN_OFF,
+  useLocalTime,
+} from "./shared";
 
 function Postmark() {
-  const time = useUkTime();
+  const time = useLocalTime();
   const [date, setDate] = useState("");
   useEffect(() => {
     setDate(
       new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Europe/London",
+        timeZone: place.timeZone,
         day: "2-digit",
         month: "short",
         year: "numeric",
@@ -36,7 +44,7 @@ function Postmark() {
       </defs>
       <text className="fill-signal font-mono text-[10px] tracking-[0.18em]">
         <textPath href="#pm-arc" startOffset="50%" textAnchor="middle">
-          EFECODE · UK
+          EFECODE · {place.city.toUpperCase()}
         </textPath>
       </text>
       <text

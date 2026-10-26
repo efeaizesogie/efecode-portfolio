@@ -3,7 +3,7 @@
 /* Pieces every contact/footer layout shares. */
 
 import { useEffect, useState } from "react";
-import { links } from "@/lib/portfolio";
+import { links, place } from "@/lib/portfolio";
 import { Magnetic } from "../interactions";
 
 export const SIGN_OFF = "Have an idea to discuss? Let's build it properly.";
@@ -16,14 +16,14 @@ export const CONTACT_LINKS = [
   { label: "Résumé", value: "PDF", href: links.resume },
 ];
 
-/* Live UK time (follows GMT/BST), refreshed every 30 seconds. */
-export function useUkTime() {
+/* Live time in `place` (follows daylight saving), refreshed every 30 seconds. */
+export function useLocalTime() {
   const [time, setTime] = useState("");
   useEffect(() => {
     const tick = () =>
       setTime(
         new Intl.DateTimeFormat("en-GB", {
-          timeZone: "Europe/London",
+          timeZone: place.timeZone,
           hour: "2-digit",
           minute: "2-digit",
         }).format(new Date()),
@@ -94,7 +94,7 @@ export function BackToTop({ className = "" }: { className?: string }) {
 
 /* The thin closing bar under every layout. */
 export function FooterBar({ tone = "ink" }: { tone?: "ink" | "light" }) {
-  const time = useUkTime();
+  const time = useLocalTime();
   const muted = tone === "ink" ? "text-ink-soft" : "text-void-foreground/50";
   const rule = tone === "ink" ? "border-rule" : "border-void-rule";
   return (
@@ -102,7 +102,7 @@ export function FooterBar({ tone = "ink" }: { tone?: "ink" | "light" }) {
       className={`shell flex flex-wrap items-center justify-between gap-4 border-t py-6 ${rule}`}
     >
       <p className={`type-label ${muted}`}>© {new Date().getFullYear()} Efe Aizesogie</p>
-      <p className={`type-label ${muted}`}>{time ? `${time} UK time` : "UK time"}</p>
+      <p className={`type-label ${muted}`}>{time ? `${time} ${place.city}` : place.city}</p>
       <BackToTop className={tone === "ink" ? "text-ink" : "text-void-foreground/80"} />
     </footer>
   );
