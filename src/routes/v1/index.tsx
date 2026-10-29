@@ -15,7 +15,7 @@ const title = "Efe Aizesogie — Frontend Engineer (EFECODE)";
 const description =
   "Frontend engineer with four years building fintech evaluation platforms, healthcare portals and payroll systems in React, Next.js and TypeScript.";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/v1/")({
   head: () => ({
     meta: [
       { title },

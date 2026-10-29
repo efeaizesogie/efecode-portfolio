@@ -59,7 +59,7 @@ function useNavState() {
     const el = document.getElementById(id);
     // Sections live on the home page; from other routes, go home to them.
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    else window.location.assign(id === "index" ? "/" : `/#${id}`);
+    else window.location.assign(id === "index" ? "/v1" : `/v1#${id}`);
   };
 
   const currentIndex = Math.max(
@@ -222,7 +222,7 @@ export function Nav() {
               </a>
               <div className="flex items-center gap-6">
                 <a
-                  href="/projects"
+                  href="/v1/projects"
                   className="type-label link-underline text-ink-soft hover:text-signal"
                 >
                   All projects

@@ -73,7 +73,7 @@ export function ProjectsIndex() {
     <section data-contour className="relative pt-32 pb-20 md:pt-40 md:pb-32">
       <div className="shell">
         <Link
-          to="/"
+          to="/v1"
           hash="work"
           className="type-label link-underline text-ink-soft hover:text-signal"
         >

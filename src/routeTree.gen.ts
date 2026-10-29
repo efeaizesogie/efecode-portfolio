@@ -9,12 +9,15 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as V2RouteImport } from './routes/_v2'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as V2IndexRouteImport } from './routes/_v2/index'
+import { Route as V1IndexRouteImport } from './routes/v1/index'
+import { Route as V1ProjectsRouteImport } from './routes/v1/projects'
+import { Route as V2WorkSlugRouteImport } from './routes/_v2/work.$slug'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const V2Route = V2RouteImport.update({
+  id: '/_v2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -22,40 +25,79 @@ const ProjectsRoute = ProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
+const V2IndexRoute = V2IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => V2Route,
+} as any)
+const V1IndexRoute = V1IndexRouteImport.update({
+  id: '/v1/',
+  path: '/v1/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const V1ProjectsRoute = V1ProjectsRouteImport.update({
+  id: '/v1/projects',
+  path: '/v1/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const V2WorkSlugRoute = V2WorkSlugRouteImport.update({
+  id: '/work/$slug',
+  path: '/work/$slug',
+  getParentRoute: () => V2Route,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof V2IndexRoute
   '/projects': typeof ProjectsRoute
+  '/v1/projects': typeof V1ProjectsRoute
+  '/v1/': typeof V1IndexRoute
+  '/work/$slug': typeof V2WorkSlugRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/projects': typeof ProjectsRoute
+  '/v1/projects': typeof V1ProjectsRoute
+  '/': typeof V2IndexRoute
+  '/v1': typeof V1IndexRoute
+  '/work/$slug': typeof V2WorkSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_v2': typeof V2RouteWithChildren
   '/projects': typeof ProjectsRoute
+  '/v1/projects': typeof V1ProjectsRoute
+  '/_v2/': typeof V2IndexRoute
+  '/v1/': typeof V1IndexRoute
+  '/_v2/work/$slug': typeof V2WorkSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/projects'
+  fullPaths: '/' | '/projects' | '/v1/projects' | '/v1/' | '/work/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/projects'
-  id: '__root__' | '/' | '/projects'
+  to: '/projects' | '/v1/projects' | '/' | '/v1' | '/work/$slug'
+  id:
+    | '__root__'
+    | '/_v2'
+    | '/projects'
+    | '/v1/projects'
+    | '/_v2/'
+    | '/v1/'
+    | '/_v2/work/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  V2Route: typeof V2RouteWithChildren
   ProjectsRoute: typeof ProjectsRoute
+  V1ProjectsRoute: typeof V1ProjectsRoute
+  V1IndexRoute: typeof V1IndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_v2': {
+      id: '/_v2'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof V2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -65,12 +107,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_v2/': {
+      id: '/_v2/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof V2IndexRouteImport
+      parentRoute: typeof V2Route
+    }
+    '/v1/': {
+      id: '/v1/'
+      path: '/v1'
+      fullPath: '/v1/'
+      preLoaderRoute: typeof V1IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/v1/projects': {
+      id: '/v1/projects'
+      path: '/v1/projects'
+      fullPath: '/v1/projects'
+      preLoaderRoute: typeof V1ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_v2/work/$slug': {
+      id: '/_v2/work/$slug'
+      path: '/work/$slug'
+      fullPath: '/work/$slug'
+      preLoaderRoute: typeof V2WorkSlugRouteImport
+      parentRoute: typeof V2Route
+    }
   }
 }
 
+interface V2RouteChildren {
+  V2IndexRoute: typeof V2IndexRoute
+  V2WorkSlugRoute: typeof V2WorkSlugRoute
+}
+
+const V2RouteChildren: V2RouteChildren = {
+  V2IndexRoute: V2IndexRoute,
+  V2WorkSlugRoute: V2WorkSlugRoute,
+}
+
+const V2RouteWithChildren = V2Route._addFileChildren(V2RouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  V2Route: V2RouteWithChildren,
   ProjectsRoute: ProjectsRoute,
+  V1ProjectsRoute: V1ProjectsRoute,
+  V1IndexRoute: V1IndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
