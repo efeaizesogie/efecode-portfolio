@@ -3,7 +3,6 @@
  * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · console: graphite taken to near-black (default), paper (light, by toggle) · contrast: pass · fold: pass · redesign: full (v1 kept at /v1) · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, a dark grotesk portfolio fits any engineer; each case page carries the project's own write-up, stack and walkthrough */
 /* Hallmark · dismissed 25 · each review is one to three sentences set at 34ch as a statement, not running prose */
-/* Hallmark · dismissed 49 · "View the interactive site" sits in .v2 .btn, which sets white-space: nowrap */
 /* Hallmark · waive 44c · Banner posture on every /work route, stamped above · the case page head is a short banner over its lead screenshot, so the screenshot band starts above the fold on purpose */
 
 /* Palette and faces, named --v2-* so they never meet /v1's tokens of the same names. */
@@ -262,7 +261,6 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
   .v2 .facts { margin-top: var(--space-xl); }
   .v2 .stage__text, .v2 .stage__obj { grid-column: 1 / -1; }
   .v2 .stage__obj { margin-top: var(--space-xl); }
-  .v2 .slab__links li.slab__wide { display: none; }
   .v2 .roles h2 { position: static; }
 }
 @media (max-width: 40rem) {

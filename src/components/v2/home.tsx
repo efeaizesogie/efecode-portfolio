@@ -31,9 +31,6 @@ export function Home() {
               <a className="btn btn--primary" href={projectMail}>
                 Start a project
               </a>
-              <a className="btn btn--quiet" href="/v1">
-                View the interactive site
-              </a>
             </div>
           </div>
           <ol className="ledger panel" aria-label="Six projects, each with a case study">

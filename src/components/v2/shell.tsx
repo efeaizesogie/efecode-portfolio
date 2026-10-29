@@ -67,9 +67,6 @@ export function Slab({ current }: { current?: "work" | undefined }) {
                 Roles
               </Link>
             </li>
-            <li className="slab__wide">
-              <a href="/v1">Interactive site</a>
-            </li>
           </ul>
         </nav>
         <div className="slab__tools">
