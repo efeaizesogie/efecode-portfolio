@@ -4,7 +4,6 @@
 
 import { Link } from "@tanstack/react-router";
 import { cases, roles } from "@/lib/cases";
-import { links } from "@/lib/portfolio";
 import { projectMail } from "./shell";
 import { Reviews } from "./reviews";
 
@@ -31,9 +30,6 @@ export function Home() {
             <div className="actions">
               <a className="btn btn--primary" href={projectMail}>
                 Start a project
-              </a>
-              <a className="mail-link" href={projectMail}>
-                {links.email}
               </a>
               <a className="btn btn--quiet" href="/v1">
                 View the interactive site

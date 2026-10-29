@@ -142,7 +142,9 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 
 /* Home hero: the head small above the ledger of six projects. */
 .v2 .hero { padding-block: var(--space-xl) var(--space-2xl); }
-.v2 .hero__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-lg); margin-bottom: var(--space-xl); }
+.v2 .hero__head { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: var(--space-lg) var(--space-2xl); margin-bottom: var(--space-xl); }
+.v2 .hero__head .actions { justify-content: flex-end; }
+@media (max-width: 75rem) { .v2 .hero__head { grid-template-columns: minmax(0, 1fr); } .v2 .hero__head .actions { justify-content: flex-start; } }
 .v2 .hero h1 { font-size: var(--text-display-s); max-width: 24ch; }
 .v2 .hero .lead { margin-top: var(--space-md); }
 .v2 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
@@ -258,7 +260,7 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
   .v2 .facts { margin-top: var(--space-xl); }
   .v2 .stage__text, .v2 .stage__obj { grid-column: 1 / -1; }
   .v2 .stage__obj { margin-top: var(--space-xl); }
-  .v2 .slab__links li.slab__wide, .v2 .slab__wide-mail { display: none; }
+  .v2 .slab__links li.slab__wide { display: none; }
 }
 @media (max-width: 40rem) {
   .v2 .figures__row { grid-template-columns: minmax(0, 1fr); }

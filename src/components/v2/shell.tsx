@@ -74,9 +74,6 @@ export function Slab({ current }: { current?: "work" | undefined }) {
         </nav>
         <div className="slab__tools">
           <ThemeToggle />
-          <a className="mail-link slab__wide-mail" href={projectMail}>
-            {links.email}
-          </a>
           <a className="btn btn--quiet slab__email" href={projectMail}>
             Start a project
           </a>
