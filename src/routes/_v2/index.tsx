@@ -4,7 +4,7 @@ import { Home } from "@/components/v2/home";
 
 const title = "Efe Aizesogie, frontend engineer";
 const description =
-  "Efe Aizesogie builds fast, considered interfaces in React, Next.js and TypeScript. Six projects, each with its case study.";
+  "Frontend engineer Efe Aizesogie turns designs into fast, accessible React and Next.js products and sees them through to launch. Six case studies.";
 
 export const Route = createFileRoute("/_v2/")({
   head: () => ({

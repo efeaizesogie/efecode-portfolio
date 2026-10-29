@@ -2,7 +2,7 @@
  * hero: Index (/), Banner (/work/verto), Banner (/work/furlio), Banner (/work/scamtrail), Banner (/work/applyready), Banner (/work/honatrix), Banner (/work/clinq) · nav: slab · footer: statement · imagery: screenshots and walkthrough videos, the user's own (public/work) · signature: the six projects as a ledger, each row opening its own case study
  * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · console: graphite taken to near-black (default), paper (light, by toggle) · contrast: pass · fold: pass · redesign: full (v1 kept at /v1) · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, a dark grotesk portfolio fits any engineer; each case page carries the project's own write-up, stack and walkthrough */
-/* Hallmark · dismissed 25 · the pull quote is one sentence of 15 words, set at 30ch as a statement, not running prose */
+/* Hallmark · dismissed 25 · the client quote is two sentences set at 34ch as a statement, not running prose */
 /* Hallmark · dismissed 49 · "View the interactive site" sits in .v2 .btn, which sets white-space: nowrap */
 /* Hallmark · waive 44c · Banner posture on every /work route, stamped above · the case page head is a short banner over its lead screenshot, so the screenshot band starts above the fold on purpose */
 
@@ -159,7 +159,15 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 .v2 .ledger__lede { color: var(--color-ink-2); }
 .v2 .ledger__field { color: var(--color-muted); font-size: var(--text-sm); }
 
-/* What I do, and the roles: rows beside a head. */
+/* The figures: three readings in the measured face, parted by hairlines. */
+.v2 .figures { padding-block: var(--section-gap-s); border-top: var(--rule-hair) solid var(--color-rule); }
+.v2 .figures__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+.v2 .figures__row > div { display: flex; flex-direction: column-reverse; gap: var(--space-sm); padding-inline: var(--space-lg); border-left: var(--rule-hair) solid var(--color-rule); }
+.v2 .figures__row > div:first-child { padding-left: 0; border-left: 0; }
+.v2 .figures__value { margin: 0; font-family: var(--font-outlier); font-size: var(--text-display); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums slashed-zero; color: var(--color-ink); }
+.v2 .figures__label { font-size: var(--text-md); color: var(--color-muted); }
+
+/* What you get, and the roles: rows beside a head. */
 .v2 .does, .v2 .roles { padding-block: var(--section-gap-s) var(--section-gap); border-top: var(--rule-hair) solid var(--color-rule); }
 .v2 .split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); }
 .v2 .split > h2 { grid-column: 1 / span 4; }
@@ -179,13 +187,15 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 /* Words from people Efe worked with, on the deepest step. */
 .v2 .said { background: var(--color-paper-3); padding-block: var(--section-gap-s); }
 .v2 .said__body { margin: 0; }
-.v2 .said__body p { font-size: var(--text-display-s); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.1; max-width: 30ch; color: var(--color-ink); text-wrap: balance; }
+.v2 .said__body p { font-size: var(--text-section); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.1; max-width: 34ch; color: var(--color-ink); text-wrap: balance; }
 .v2 .said__body footer { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); }
 
 /* Close: one statement and the links. */
 .v2 .close { padding-block: var(--section-gap) var(--space-2xl); border-top: var(--rule-hair) solid var(--color-rule); }
 .v2 .close__line { font-size: var(--text-section); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.08; max-width: 22ch; color: var(--color-ink); overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
-.v2 .close__line a { text-decoration-color: var(--color-accent-line); }
+.v2 .close__sub { margin-top: var(--space-lg); max-width: 52ch; font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink-2); }
+.v2 .close__sub a { color: var(--color-ink); text-decoration-color: var(--color-accent-line); }
+.v2 .close__cta { margin-top: var(--space-xl); }
 .v2 .close__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-lg); margin-top: var(--space-2xl); }
 .v2 .close__links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
 .v2 .close__legal { font-size: var(--text-sm); color: var(--color-muted); }
@@ -239,6 +249,9 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
   .v2 .slab__links li.slab__wide { display: none; }
 }
 @media (max-width: 40rem) {
+  .v2 .figures__row { grid-template-columns: minmax(0, 1fr); }
+  .v2 .figures__row > div { padding: var(--space-md) 0; border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .v2 .figures__row > div:first-child { border-top: 0; padding-top: 0; }
   .v2 .slab__links { display: none; }
   .v2 .slab__row { justify-content: space-between; gap: var(--space-sm); }
   .v2 .slab__email { display: none; }

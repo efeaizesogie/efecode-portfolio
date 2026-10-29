@@ -1,11 +1,20 @@
-/* The minimal home page: the six projects as a ledger, what Efe does, the
- * roles, one teammate's words. Each ledger row opens its case study. */
+/* The minimal home page: the six projects as a ledger, the figures behind
+ * them, what a client gets, the roles, one client's words. Each ledger row
+ * opens its case study. */
 
 import { Link } from "@tanstack/react-router";
 import { cases, roles } from "@/lib/cases";
-import { links, testimonials } from "@/lib/portfolio";
+import { testimonials } from "@/lib/portfolio";
+import { projectMail } from "./shell";
 
-const kelechi = testimonials.find((t) => t.name === "Kelechi Eronini");
+/* The figures the interactive site's About section already states. */
+const figures = [
+  ["4", "years shipping frontend"],
+  ["14+", "projects delivered"],
+  ["6", "teams worked with"],
+] as const;
+
+const client = testimonials.find((t) => t.name === "Godstime Nwabue");
 
 export function Home() {
   return (
@@ -15,11 +24,14 @@ export function Home() {
           <div className="hero__head">
             <div>
               <h1 id="hero-head">Fast, considered interfaces for the web.</h1>
-              <p className="lead">I’m Efe, a frontend engineer working in React, Next.js and TypeScript.</p>
+              <p className="lead">
+                I turn your designs into fast, accessible React and Next.js products, and see them through to
+                launch.
+              </p>
             </div>
             <div className="actions">
-              <a className="btn btn--primary" href={`mailto:${links.email}`}>
-                Email me
+              <a className="btn btn--primary" href={projectMail}>
+                Start a project
               </a>
               <a className="btn btn--quiet" href="/v1">
                 View the interactive site
@@ -50,29 +62,53 @@ export function Home() {
         </div>
       </section>
 
+      <section className="figures" aria-label="In numbers">
+        <div className="container">
+          <dl className="figures__row">
+            {figures.map(([n, label]) => (
+              <div key={label}>
+                <dt className="figures__label">{label}</dt>
+                <dd className="figures__value">{n}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
       <section className="does" aria-labelledby="does-head">
         <div className="container split">
-          <h2 id="does-head">What I do.</h2>
+          <h2 id="does-head">What you get.</h2>
           <dl className="does__list">
             <div>
-              <dt>Interfaces from design files</dt>
-              <dd>UI and UX designs turned into responsive, reusable React components.</dd>
+              <dt>Your design, built exactly</dt>
+              <dd>Figma files turned into responsive React components that look right on every screen.</dd>
             </div>
             <div>
-              <dt>Motion that explains</dt>
-              <dd>GSAP and Framer Motion, used to guide the eye rather than decorate.</dd>
+              <dt>Fast, findable pages</dt>
+              <dd>Code tuned for speed, SEO and accessibility, as on the Ascetic Capital site.</dd>
             </div>
             <div>
-              <dt>Fintech and data screens</dt>
-              <dd>Fintech components at Mercator Technologies; dashboards like PayFlow Analyzer.</dd>
+              <dt>Motion with a job</dt>
+              <dd>GSAP and Framer Motion that lead visitors to the next step instead of distracting them.</dd>
             </div>
             <div>
-              <dt>Maps and spatial data</dt>
-              <dd>A B.Sc. in Geomatics and a year as a GIS specialist at DGIS.</dd>
+              <dt>Product screens, not only pages</dt>
+              <dd>Bookings, dashboards and fintech flows, from Clinq to Mercator Technologies.</dd>
             </div>
           </dl>
         </div>
       </section>
+
+      {client && (
+        <section className="said" aria-label="From a client">
+          <div className="container">
+            <blockquote className="said__body">
+              <p>“{client.quote}”</p>
+              <footer>{client.name}, client</footer>
+            </blockquote>
+          </div>
+        </section>
+      )}
 
       <section className="roles" id="roles" aria-labelledby="roles-head">
         <div className="container split">
@@ -92,17 +128,6 @@ export function Home() {
           </ol>
         </div>
       </section>
-
-      {kelechi && (
-        <section className="said" aria-label="From a teammate">
-          <div className="container">
-            <blockquote className="said__body">
-              <p>“{kelechi.quote.split(". ")[0]}.”</p>
-              <footer>{kelechi.name}</footer>
-            </blockquote>
-          </div>
-        </section>
-      )}
     </>
   );
 }

@@ -11,6 +11,9 @@ import { links } from "@/lib/portfolio";
 
 export const THEME_KEY = "efecode:v2-theme";
 
+/* Every "Start a project" opens a mail with the subject already filled in. */
+export const projectMail = `mailto:${links.email}?subject=${encodeURIComponent("New project")}`;
+
 /* Runs before the page paints, so a light choice never flashes dark. */
 export const themeScript = `try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.dataset["theme"]="light"}catch(e){}`;
 
@@ -71,8 +74,8 @@ export function Slab({ current }: { current?: "work" | undefined }) {
         </nav>
         <div className="slab__tools">
           <ThemeToggle />
-          <a className="btn btn--quiet slab__email" href={`mailto:${links.email}`}>
-            Email me
+          <a className="btn btn--quiet slab__email" href={projectMail}>
+            Start a project
           </a>
         </div>
       </div>
@@ -84,9 +87,14 @@ export function Close() {
   return (
     <footer className="close">
       <div className="container">
-        <p className="close__line">
-          Have something to build? <a href={`mailto:${links.email}`}>{links.email}</a>
+        <h2 className="close__line">Have a product to launch? Tell me about it.</h2>
+        <p className="close__sub">
+          Send a brief, a Figma link or a rough idea to{" "}
+          <a href={projectMail}>{links.email}</a>, and I’ll tell you how I’d build it.
         </p>
+        <a className="btn close__cta" href={projectMail}>
+          Start a project
+        </a>
         <div className="close__row">
           <ul className="close__links">
             <li>
