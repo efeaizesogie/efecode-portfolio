@@ -1,6 +1,6 @@
 /* Hallmark · shape: Index-First (/), Narrative Workflow (/work/$slug) · genre: modern-minimal · theme: Console (deal 1/3, seed dark-fintech-minimal-portfolio-frontend-37d9·63fadc74·2026-10-29·r0) · job: hire · draw: 8950f5
  * hero: Index (/), Banner (/work/verto), Banner (/work/furlio), Banner (/work/scamtrail), Banner (/work/applyready), Banner (/work/honatrix), Banner (/work/clinq) · nav: slab · footer: statement · imagery: screenshots and walkthrough videos, the user's own (public/work) · signature: the six projects as a ledger, each row opening its own case study
- * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · console: graphite taken to near-black (default), paper (light, by toggle) · contrast: pass · fold: pass · redesign: full (v1 kept at /v1) · v2.0.0 */
+ * motion: a hero entrance and one scroll fade-in, at the user's request (Console otherwise keeps still) · axes: dark/grotesk-sans/chromatic-amber · posture: restrained · console: graphite taken to near-black (default), paper (light, by toggle) · contrast: pass · fold: pass · redesign: full (v1 kept at /v1) · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, a dark grotesk portfolio fits any engineer; each case page carries the project's own write-up, stack and walkthrough */
 /* Hallmark · dismissed 25 · each review is one to three sentences set at 34ch as a statement, not running prose */
 /* Hallmark · waive 44c · Banner posture on every /work route, stamped above · the case page head is a short banner over its lead screenshot, so the screenshot band starts above the fold on purpose */
@@ -107,6 +107,18 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 .v2 .skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); }
 .v2 .skip:focus-visible { top: var(--space-md); }
 @media (prefers-reduced-motion: reduce) { .v2 *, .v2 *::before, .v2 *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+
+/* Motion: the hero settles in once on load, and each later section fades up
+ * once as it enters. The entrance is a self-running animation, so it ends
+ * visible with no script; the fade-in only starts hidden on a scripted page. */
+@keyframes v2-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.v2 .rise { animation: v2-rise 700ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 80ms); }
+.js .v2 [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out); }
+.js .v2 [data-reveal].is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .v2 .rise { animation: none; }
+  .js .v2 [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
 
 /* Slab: one full-width bar. */
 .v2 .slab { background: var(--color-paper-2); border-bottom: var(--rule-hair) solid var(--color-rule); }

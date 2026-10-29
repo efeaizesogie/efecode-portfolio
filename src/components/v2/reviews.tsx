@@ -43,6 +43,7 @@ export function Reviews() {
     <section
       ref={ref}
       className="said"
+      data-reveal
       aria-label="What clients and teammates say"
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}

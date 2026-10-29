@@ -1,6 +1,7 @@
 /* One project's case study: the head and its facts, the lead screen, then
  * three numbered stages, each with its own screen or the walkthrough. */
 
+import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { cases, type Case } from "@/lib/cases";
 import { LoopVideo } from "./loop-video";
@@ -71,9 +72,11 @@ export function CaseStudy({ c }: { c: Case }) {
           </p>
           <div className="case-hero__grid">
             <div>
-              <h1 id="case-head">{c.title}</h1>
-              <p className="lead">{c.lede}</p>
-              <div className="actions">
+              <h1 id="case-head" className="rise" style={{ "--i": 0 } as CSSProperties}>{c.title}</h1>
+              <p className="lead rise" style={{ "--i": 1 } as CSSProperties}>
+                {c.lede}
+              </p>
+              <div className="actions rise" style={{ "--i": 2 } as CSSProperties}>
                 {c.live && (
                   <a className="btn btn--primary" href={c.live}>
                     Visit the live site
@@ -86,7 +89,7 @@ export function CaseStudy({ c }: { c: Case }) {
                 )}
               </div>
             </div>
-            <dl className="facts panel">
+            <dl className="facts panel rise" style={{ "--i": 3 } as CSSProperties}>
               <div>
                 <dt>Year</dt>
                 <dd className="measured">{c.year}</dd>
@@ -110,14 +113,14 @@ export function CaseStudy({ c }: { c: Case }) {
         </div>
       </section>
 
-      <section className="lead-shot" aria-label={`${c.title}, the first screen`}>
+      <section className="lead-shot" data-reveal aria-label={`${c.title}, the first screen`}>
         <div className="container">
           <Shot c={c} n={1} eager />
         </div>
       </section>
 
       {stages.map((s, n) => (
-        <section className="stage" key={s.head} aria-labelledby={`stage-${n + 1}`}>
+        <section className="stage" data-reveal key={s.head} aria-labelledby={`stage-${n + 1}`}>
           <div className="container stage__grid">
             <div className="stage__text">
               <h2 id={`stage-${n + 1}`}>
@@ -131,7 +134,7 @@ export function CaseStudy({ c }: { c: Case }) {
       ))}
 
       {c.quote && (
-        <section className="said" aria-label="From the client">
+        <section className="said" data-reveal aria-label="From the client">
           <div className="container">
             <blockquote className="said__body">
               <p>“{c.quote.text}”</p>
@@ -141,7 +144,7 @@ export function CaseStudy({ c }: { c: Case }) {
         </section>
       )}
 
-      <nav className="next" aria-label="Next case study">
+      <nav className="next" data-reveal aria-label="Next case study">
         <div className="container">
           <Link to="/work/$slug" params={{ slug: next.slug }} className="next__link">
             <span className="next__label">Next case study</span>
