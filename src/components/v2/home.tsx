@@ -23,9 +23,15 @@ export function Home() {
           <div className="hero__head">
             <div>
               <h1 id="hero-head" className="rise" style={{ "--i": 0 } as CSSProperties}>Fast, considered interfaces for the web.</h1>
-              <p className="lead rise" style={{ "--i": 1 } as CSSProperties}>
-                I turn your designs into fast, accessible React and Next.js products, and see them through to
-                launch.
+              <p className="lead hero__lead rise" style={{ "--i": 1 } as CSSProperties}>
+                <span>
+                  I’m a frontend engineer who turns designs into fast, accessible products, works closely with
+                  designers and backend teams, and takes the work all the way to launch.
+                </span>
+                <span>
+                  I’ve built across fintech, healthcare, construction and Web3: booking portals, dashboards and
+                  company sites that customers find easy to use and teams can keep building on.
+                </span>
               </p>
             </div>
             <div className="actions rise" style={{ "--i": 2 } as CSSProperties}>
@@ -34,10 +40,15 @@ export function Home() {
               </a>
             </div>
           </div>
-          <ol className="ledger panel rise" style={{ "--i": 3 } as CSSProperties} aria-label="Six projects, each with a case study">
+          <ol className="ledger panel" aria-label="Six projects, each with a case study">
             {cases.map((c, i) => (
               <li key={c.slug}>
-                <Link to="/work/$slug" params={{ slug: c.slug }} className="ledger__link">
+                <Link
+                  to="/work/$slug"
+                  params={{ slug: c.slug }}
+                  className="ledger__link"
+                  style={{ "--row": i } as CSSProperties}
+                >
                   <img
                     className="ledger__thumb"
                     src={`/work/${c.slug}/1.jpg`}
@@ -55,7 +66,7 @@ export function Home() {
               </li>
             ))}
           </ol>
-          <dl className="figures__row rise" style={{ "--i": 4 } as CSSProperties} aria-label="In numbers">
+          <dl className="figures__row rise" style={{ "--i": 6 } as CSSProperties} aria-label="In numbers">
             {figures.map(([n, label]) => (
               <div key={label}>
                 <dt className="figures__label">{label}</dt>
