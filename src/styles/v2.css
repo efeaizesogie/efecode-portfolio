@@ -164,16 +164,18 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 .v2 .ledger__lede { color: var(--color-ink-2); }
 .v2 .ledger__field { color: var(--color-muted); font-size: var(--text-sm); }
 
-/* The figures: three readings in the measured face, parted by hairlines. */
-.v2 .figures { padding-block: var(--section-gap-s); border-top: var(--rule-hair) solid var(--color-rule); }
-.v2 .figures__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; }
+/* The figures: three readings in the measured face under the ledger, parted by hairlines. */
+.v2 .figures__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-xl) 0 0; }
 .v2 .figures__row > div { display: flex; flex-direction: column-reverse; gap: var(--space-sm); padding-inline: var(--space-lg); border-left: var(--rule-hair) solid var(--color-rule); }
 .v2 .figures__row > div:first-child { padding-left: 0; border-left: 0; }
-.v2 .figures__value { margin: 0; font-family: var(--font-outlier); font-size: var(--text-display); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums slashed-zero; color: var(--color-ink); }
-.v2 .figures__label { font-size: var(--text-md); color: var(--color-muted); }
+.v2 .figures__value { margin: 0; font-family: var(--font-outlier); font-size: var(--text-display-s); font-weight: 400; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums slashed-zero; color: var(--color-ink); }
+.v2 .figures__label { font-size: var(--text-sm); color: var(--color-muted); }
 
 /* What you get, and the roles: rows beside a head. */
-.v2 .does, .v2 .roles { padding-block: var(--section-gap-s) var(--section-gap); border-top: var(--rule-hair) solid var(--color-rule); }
+.v2 .does { padding-block: var(--section-gap-s) var(--section-gap); border-top: var(--rule-hair) solid var(--color-rule); }
+.v2 .roles { padding-block: var(--space-3xl); border-top: var(--rule-hair) solid var(--color-rule); }
+/* The roles head stays in view while its trail scrolls past. */
+.v2 .roles h2 { position: sticky; top: var(--space-xl); align-self: start; }
 .v2 .split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); }
 .v2 .split > h2 { grid-column: 1 / span 4; }
 .v2 .split > :not(h2) { grid-column: 5 / span 8; }
@@ -261,13 +263,19 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
   .v2 .stage__text, .v2 .stage__obj { grid-column: 1 / -1; }
   .v2 .stage__obj { margin-top: var(--space-xl); }
   .v2 .slab__links li.slab__wide { display: none; }
+  .v2 .roles h2 { position: static; }
 }
 @media (max-width: 40rem) {
-  .v2 .figures__row { grid-template-columns: minmax(0, 1fr); }
-  .v2 .figures__row > div { padding: var(--space-md) 0; border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
-  .v2 .figures__row > div:first-child { border-top: 0; padding-top: 0; }
+  .v2 .figures__row > div { padding-inline: var(--space-sm); gap: var(--space-xs); }
+  .v2 .figures__value { font-size: var(--text-2xl); }
   .v2 .slab__links { display: none; }
   .v2 .slab__row { justify-content: space-between; gap: var(--space-sm); }
   .v2 .slab__email { display: none; }
-  .v2 .does__list > div, .v2 .trail__item { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+  .v2 .does__list > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+  .v2 .trail { border-left: 0; }
+  .v2 .trail__item { grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2xs) var(--space-sm); padding: var(--space-sm) 0; }
+  .v2 .trail__who { grid-column: 1 / -1; }
+  .v2 .trail__who strong { display: inline; }
+  .v2 .trail__who strong::after { content: ", "; font-weight: 400; color: var(--color-muted); }
+  .v2 .trail__where { justify-self: end; text-align: right; }
 }

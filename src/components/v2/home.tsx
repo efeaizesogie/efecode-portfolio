@@ -57,12 +57,7 @@ export function Home() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="figures" aria-label="In numbers">
-        <div className="container">
-          <dl className="figures__row">
+          <dl className="figures__row" aria-label="In numbers">
             {figures.map(([n, label]) => (
               <div key={label}>
                 <dt className="figures__label">{label}</dt>
