@@ -59,7 +59,7 @@ function useNavState() {
     const el = document.getElementById(id);
     // Sections live on the home page; from other routes, go home to them.
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    else window.location.assign(id === "index" ? "/" : `/#${id}`);
+    else window.location.assign(id === "index" ? "/v1" : `/v1#${id}`);
   };
 
   const currentIndex = Math.max(
@@ -138,17 +138,27 @@ export function Nav() {
           >
             Efe Aizesogie
           </button>
-          <Magnetic strength={0.25}>
-            <button
-              onClick={() => setOpen((v) => !v)}
-              aria-expanded={open}
-              aria-controls="map-menu"
-              className="type-label flex items-center gap-3 text-ink"
+          <div className="flex items-center gap-6 md:gap-10">
+            {/* Back to the minimal site at the root. */}
+            <a
+              href="/"
+              data-cursor="Go"
+              className="type-label link-underline text-ink-soft hover:text-signal"
             >
-              {open ? "Close" : "Menu"}
-              <Key>{open ? "Esc" : "M"}</Key>
-            </button>
-          </Magnetic>
+              Minimal site
+            </a>
+            <Magnetic strength={0.25}>
+              <button
+                onClick={() => setOpen((v) => !v)}
+                aria-expanded={open}
+                aria-controls="map-menu"
+                className="type-label flex items-center gap-3 text-ink"
+              >
+                {open ? "Close" : "Menu"}
+                <Key>{open ? "Esc" : "M"}</Key>
+              </button>
+            </Magnetic>
+          </div>
         </div>
         <motion.div className="h-px origin-left bg-signal" style={{ scaleX: progress }} />
       </header>
@@ -222,7 +232,13 @@ export function Nav() {
               </a>
               <div className="flex items-center gap-6">
                 <a
-                  href="/projects"
+                  href="/"
+                  className="type-label link-underline text-ink-soft hover:text-signal"
+                >
+                  Minimal site
+                </a>
+                <a
+                  href="/v1/projects"
                   className="type-label link-underline text-ink-soft hover:text-signal"
                 >
                   All projects

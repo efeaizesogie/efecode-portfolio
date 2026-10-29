@@ -485,7 +485,7 @@ export const testimonials = [
 export const place = { city: "London", timeZone: "Europe/London" };
 
 export const links = {
-  email: "efeaizesogie@gmail.com",
+  email: "efe@efecode.tech",
   linkedin: "https://www.linkedin.com/in/efe-aizesogie/",
   x: "https://x.com/efecode",
   github: "https://github.com/efeaizesogie",

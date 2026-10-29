@@ -1,37 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Cursor } from "@/components/site/cursor";
-import { ContourBackdrop } from "@/components/site/terrain";
-import { Nav } from "@/components/site/nav";
-import { ProjectsIndex } from "@/components/site/projects-index";
-import { Footer } from "@/components/site/footer";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const title = "All projects — Efe Aizesogie (EFECODE)";
-const description =
-  "Every project by Efe Aizesogie: client sites, fintech platforms, products and frontend experiments.";
-
+/* The full project index now lives with the interactive version. */
 export const Route = createFileRoute("/projects")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-    ],
-  }),
-  component: Projects,
+  beforeLoad: () => {
+    throw redirect({ to: "/v1/projects", statusCode: 301 });
+  },
 });
-
-function Projects() {
-  return (
-    <>
-      <Cursor />
-      <ContourBackdrop />
-      <Nav />
-      <main>
-        <ProjectsIndex />
-        <Footer />
-      </main>
-    </>
-  );
-}

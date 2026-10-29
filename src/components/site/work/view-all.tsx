@@ -7,7 +7,7 @@ import { ALL_PROJECTS } from "./data";
 export function ViewAllProjects() {
   return (
     <Link
-      to="/projects"
+      to="/v1/projects"
       data-cursor="View"
       className="group inline-flex items-baseline gap-4 border-b border-ink/40 pb-2 transition-colors hover:border-signal"
     >
