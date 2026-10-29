@@ -2,7 +2,7 @@
  * hero: Index (/), Banner (/work/verto), Banner (/work/furlio), Banner (/work/scamtrail), Banner (/work/applyready), Banner (/work/honatrix), Banner (/work/clinq) · nav: slab · footer: statement · imagery: screenshots and walkthrough videos, the user's own (public/work) · signature: the six projects as a ledger, each row opening its own case study
  * axes: dark/grotesk-sans/chromatic-amber · posture: restrained · console: graphite taken to near-black (default), paper (light, by toggle) · contrast: pass · fold: pass · redesign: full (v1 kept at /v1) · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, a dark grotesk portfolio fits any engineer; each case page carries the project's own write-up, stack and walkthrough */
-/* Hallmark · dismissed 25 · the client quote is two sentences set at 34ch as a statement, not running prose */
+/* Hallmark · dismissed 25 · each review is one to three sentences set at 34ch as a statement, not running prose */
 /* Hallmark · dismissed 49 · "View the interactive site" sits in .v2 .btn, which sets white-space: nowrap */
 /* Hallmark · waive 44c · Banner posture on every /work route, stamped above · the case page head is a short banner over its lead screenshot, so the screenshot band starts above the fold on purpose */
 
@@ -145,7 +145,10 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 .v2 .hero__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--space-lg); margin-bottom: var(--space-xl); }
 .v2 .hero h1 { font-size: var(--text-display-s); max-width: 24ch; }
 .v2 .hero .lead { margin-top: var(--space-md); }
-.v2 .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.v2 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
+/* The address itself, right beside every Start a project. */
+.v2 .mail-link { display: inline-flex; align-items: center; min-height: 44px; padding-inline: var(--space-xs); color: var(--color-ink); white-space: nowrap; text-decoration-line: underline; text-decoration-color: var(--color-muted); }
+.v2 .mail-link:hover { color: var(--color-accent-line); text-decoration-color: currentColor; }
 
 .v2 .ledger__link {
   display: grid; grid-template-columns: var(--thumb-w) minmax(0, 1.2fr) minmax(0, 2fr) minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-lg);
@@ -188,16 +191,25 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
 .v2 .said { background: var(--color-paper-3); padding-block: var(--section-gap-s); }
 .v2 .said__body { margin: 0; }
 .v2 .said__body p { font-size: var(--text-section); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.1; max-width: 34ch; color: var(--color-ink); text-wrap: balance; }
-.v2 .said__body footer { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); }
+.v2 .said__body footer { margin-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-ink-2); }
+.v2 .said__handle { color: var(--color-muted); }
+.v2 .said__controls { display: flex; gap: var(--space-xs); margin-top: var(--space-xl); }
+.v2 .said__body { animation: v2-said-in var(--dur-long) var(--ease-out); }
+.v2 .said__body p { min-height: 5lh; }
+@keyframes v2-said-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .v2 .said__body { animation: none; } }
+@media (max-width: 40rem) { .v2 .said__body p { min-height: 0; } }
 
 /* Close: one statement and the links. */
 .v2 .close { padding-block: var(--section-gap) var(--space-2xl); border-top: var(--rule-hair) solid var(--color-rule); }
 .v2 .close__line { font-size: var(--text-section); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.08; max-width: 22ch; color: var(--color-ink); overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 .v2 .close__sub { margin-top: var(--space-lg); max-width: 52ch; font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink-2); }
 .v2 .close__sub a { color: var(--color-ink); text-decoration-color: var(--color-accent-line); }
-.v2 .close__cta { margin-top: var(--space-xl); }
+.v2 .close__cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-top: var(--space-xl); }
 .v2 .close__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-lg); margin-top: var(--space-2xl); }
 .v2 .close__links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
+.v2 .close__links a { color: var(--color-ink); text-decoration-line: underline; text-decoration-color: var(--color-muted); }
+.v2 .close__links a:hover { color: var(--color-accent-line); text-decoration-color: currentColor; }
 .v2 .close__legal { font-size: var(--text-sm); color: var(--color-muted); }
 
 /* Case page: head and facts, then the lead screen on the deepest step. */
@@ -246,7 +258,7 @@ html:has(.v2) { scroll-padding-top: var(--space-3xl); }
   .v2 .facts { margin-top: var(--space-xl); }
   .v2 .stage__text, .v2 .stage__obj { grid-column: 1 / -1; }
   .v2 .stage__obj { margin-top: var(--space-xl); }
-  .v2 .slab__links li.slab__wide { display: none; }
+  .v2 .slab__links li.slab__wide, .v2 .slab__wide-mail { display: none; }
 }
 @media (max-width: 40rem) {
   .v2 .figures__row { grid-template-columns: minmax(0, 1fr); }

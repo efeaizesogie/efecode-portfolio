@@ -1,11 +1,12 @@
 /* The minimal home page: the six projects as a ledger, the figures behind
- * them, what a client gets, the roles, one client's words. Each ledger row
+ * them, what a client gets, reviews in turn, the roles. Each ledger row
  * opens its case study. */
 
 import { Link } from "@tanstack/react-router";
 import { cases, roles } from "@/lib/cases";
-import { testimonials } from "@/lib/portfolio";
+import { links } from "@/lib/portfolio";
 import { projectMail } from "./shell";
+import { Reviews } from "./reviews";
 
 /* The figures the interactive site's About section already states. */
 const figures = [
@@ -13,8 +14,6 @@ const figures = [
   ["14+", "projects delivered"],
   ["6", "teams worked with"],
 ] as const;
-
-const client = testimonials.find((t) => t.name === "Godstime Nwabue");
 
 export function Home() {
   return (
@@ -32,6 +31,9 @@ export function Home() {
             <div className="actions">
               <a className="btn btn--primary" href={projectMail}>
                 Start a project
+              </a>
+              <a className="mail-link" href={projectMail}>
+                {links.email}
               </a>
               <a className="btn btn--quiet" href="/v1">
                 View the interactive site
@@ -99,16 +101,7 @@ export function Home() {
         </div>
       </section>
 
-      {client && (
-        <section className="said" aria-label="From a client">
-          <div className="container">
-            <blockquote className="said__body">
-              <p>“{client.quote}”</p>
-              <footer>{client.name}, client</footer>
-            </blockquote>
-          </div>
-        </section>
-      )}
+      <Reviews />
 
       <section className="roles" id="roles" aria-labelledby="roles-head">
         <div className="container split">

@@ -74,6 +74,9 @@ export function Slab({ current }: { current?: "work" | undefined }) {
         </nav>
         <div className="slab__tools">
           <ThemeToggle />
+          <a className="mail-link slab__wide-mail" href={projectMail}>
+            {links.email}
+          </a>
           <a className="btn btn--quiet slab__email" href={projectMail}>
             Start a project
           </a>
@@ -88,13 +91,15 @@ export function Close() {
     <footer className="close">
       <div className="container">
         <h2 className="close__line">Have a product to launch? Tell me about it.</h2>
-        <p className="close__sub">
-          Send a brief, a Figma link or a rough idea to{" "}
-          <a href={projectMail}>{links.email}</a>, and I’ll tell you how I’d build it.
-        </p>
-        <a className="btn close__cta" href={projectMail}>
-          Start a project
-        </a>
+        <p className="close__sub">Send a brief, a Figma link or a rough idea, and I’ll tell you how I’d build it.</p>
+        <div className="close__cta">
+          <a className="btn" href={projectMail}>
+            Start a project
+          </a>
+          <a className="mail-link" href={projectMail}>
+            {links.email}
+          </a>
+        </div>
         <div className="close__row">
           <ul className="close__links">
             <li>
