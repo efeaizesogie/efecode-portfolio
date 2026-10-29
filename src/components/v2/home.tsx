@@ -2,6 +2,7 @@
  * them, what a client gets, reviews in turn, the roles. Each ledger row
  * opens its case study. */
 
+import type { CSSProperties } from "react";
 import { Link } from "@tanstack/react-router";
 import { cases, roles } from "@/lib/cases";
 import { projectMail } from "./shell";
@@ -21,22 +22,19 @@ export function Home() {
         <div className="container">
           <div className="hero__head">
             <div>
-              <h1 id="hero-head">Fast, considered interfaces for the web.</h1>
-              <p className="lead">
+              <h1 id="hero-head" className="rise" style={{ "--i": 0 } as CSSProperties}>Fast, considered interfaces for the web.</h1>
+              <p className="lead rise" style={{ "--i": 1 } as CSSProperties}>
                 I turn your designs into fast, accessible React and Next.js products, and see them through to
                 launch.
               </p>
             </div>
-            <div className="actions">
+            <div className="actions rise" style={{ "--i": 2 } as CSSProperties}>
               <a className="btn btn--primary" href={projectMail}>
                 Start a project
               </a>
-              <a className="btn btn--quiet" href="/v1">
-                View the interactive site
-              </a>
             </div>
           </div>
-          <ol className="ledger panel" aria-label="Six projects, each with a case study">
+          <ol className="ledger panel rise" style={{ "--i": 3 } as CSSProperties} aria-label="Six projects, each with a case study">
             {cases.map((c, i) => (
               <li key={c.slug}>
                 <Link to="/work/$slug" params={{ slug: c.slug }} className="ledger__link">
@@ -57,12 +55,7 @@ export function Home() {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section className="figures" aria-label="In numbers">
-        <div className="container">
-          <dl className="figures__row">
+          <dl className="figures__row rise" style={{ "--i": 4 } as CSSProperties} aria-label="In numbers">
             {figures.map(([n, label]) => (
               <div key={label}>
                 <dt className="figures__label">{label}</dt>
@@ -73,7 +66,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="does" aria-labelledby="does-head">
+      <section className="does" aria-labelledby="does-head" data-reveal>
         <div className="container split">
           <h2 id="does-head">What you get.</h2>
           <dl className="does__list">
@@ -99,7 +92,7 @@ export function Home() {
 
       <Reviews />
 
-      <section className="roles" id="roles" aria-labelledby="roles-head">
+      <section className="roles" id="roles" aria-labelledby="roles-head" data-reveal>
         <div className="container split">
           <h2 id="roles-head">Six roles since 2023.</h2>
           <ol className="trail">

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { testimonials } from "@/lib/portfolio";
 
 const EVERY_MS = 7000;
 
 /* The five reviews, one at a time. It turns every seven seconds while on
- * screen, holds on hover and focus, has a visible Pause, and never moves
- * under reduced motion. Without script the first review simply stays. */
+ * screen and holds on hover and focus. The arrows step back and forward,
+ * and the first press stops the turning for good, so a reader can always
+ * hold one still. It never moves under reduced motion; without script the
+ * first review simply stays. */
 export function Reviews() {
   const ref = useRef<HTMLElement>(null);
   const [i, setI] = useState(0);
@@ -13,6 +16,11 @@ export function Reviews() {
   const [hover, setHover] = useState(false);
   const [held, setHeld] = useState(false);
   const [byHand, setByHand] = useState(false);
+  const n = testimonials.length;
+  const step = (d: number) => {
+    setByHand(true);
+    setI((x) => (x + d + n) % n);
+  };
 
   useEffect(() => {
     setHeld(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -23,18 +31,19 @@ export function Reviews() {
     return () => io.disconnect();
   }, []);
 
-  const running = seen && !hover && !held;
+  const running = seen && !hover && !held && !byHand;
   useEffect(() => {
     if (!running) return;
-    const id = window.setTimeout(() => setI((n) => (n + 1) % testimonials.length), EVERY_MS);
+    const id = window.setTimeout(() => setI((x) => (x + 1) % n), EVERY_MS);
     return () => window.clearTimeout(id);
-  }, [running, i]);
+  }, [running, i, n]);
 
   const t = testimonials[i]!;
   return (
     <section
       ref={ref}
       className="said"
+      data-reveal
       aria-label="What clients and teammates say"
       onPointerEnter={() => setHover(true)}
       onPointerLeave={() => setHover(false)}
@@ -49,18 +58,11 @@ export function Reviews() {
           </footer>
         </blockquote>
         <div className="said__controls">
-          <button type="button" className="btn btn--small btn--quiet" onClick={() => setHeld((h) => !h)}>
-            {held ? "Play" : "Pause"}
+          <button type="button" className="btn btn--icon" onClick={() => step(-1)} aria-label="Previous review">
+            <ArrowLeft aria-hidden />
           </button>
-          <button
-            type="button"
-            className="btn btn--small btn--quiet"
-            onClick={() => {
-              setByHand(true);
-              setI((n) => (n + 1) % testimonials.length);
-            }}
-          >
-            Next review
+          <button type="button" className="btn btn--icon" onClick={() => step(1)} aria-label="Next review">
+            <ArrowRight aria-hidden />
           </button>
         </div>
       </div>

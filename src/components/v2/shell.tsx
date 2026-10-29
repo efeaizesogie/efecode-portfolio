@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useState, type ReactNode } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Moon, Sun } from "lucide-react";
 import { links } from "@/lib/portfolio";
 
@@ -14,8 +14,32 @@ export const THEME_KEY = "efecode:v2-theme";
 /* Every "Start a project" opens a mail with the subject already filled in. */
 export const projectMail = `mailto:${links.email}?subject=${encodeURIComponent("New project")}`;
 
-/* Runs before the page paints, so a light choice never flashes dark. */
-export const themeScript = `try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.dataset["theme"]="light"}catch(e){}`;
+/* Runs before the page paints, so a light choice never flashes dark. It
+ * also marks the page as scripted, which is the only state in which the
+ * scroll fade-ins start hidden: without script every section just shows. */
+export const themeScript = `document.documentElement.classList.add("js");try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)})==="light")document.documentElement.dataset["theme"]="light"}catch(e){}`;
+
+/* Fades each [data-reveal] section in once as it scrolls into view. */
+function useReveal(key: string) {
+  useEffect(() => {
+    const els = [...document.querySelectorAll<HTMLElement>(".v2 [data-reveal]:not(.is-in)")];
+    if (!("IntersectionObserver" in window)) {
+      els.forEach((el) => el.classList.add("is-in"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add("is-in");
+          io.unobserve(e.target);
+        }),
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [key]);
+}
 
 function ThemeToggle() {
   const [light, setLight] = useState(false);
@@ -67,9 +91,6 @@ export function Slab({ current }: { current?: "work" | undefined }) {
                 Roles
               </Link>
             </li>
-            <li className="slab__wide">
-              <a href="/v1">Interactive site</a>
-            </li>
           </ul>
         </nav>
         <div className="slab__tools">
@@ -85,7 +106,7 @@ export function Slab({ current }: { current?: "work" | undefined }) {
 
 export function Close() {
   return (
-    <footer className="close">
+    <footer className="close" data-reveal>
       <div className="container">
         <h2 className="close__line">Have a product to launch? Tell me about it.</h2>
         <p className="close__sub">Send a brief, a Figma link or a rough idea, and I’ll tell you how I’d build it.</p>
@@ -123,6 +144,7 @@ export function Close() {
 }
 
 export function V2Frame({ children, current }: { children: ReactNode; current?: "work" | undefined }) {
+  useReveal(useLocation().pathname);
   return (
     <div className="v2">
       <a className="skip" href="#main">
