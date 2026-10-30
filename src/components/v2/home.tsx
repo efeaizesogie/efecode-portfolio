@@ -3,8 +3,8 @@
  * opens its case study. */
 
 import type { CSSProperties } from "react";
-import { Link } from "@tanstack/react-router";
-import { cases, roles } from "@/lib/cases";
+import { roles } from "@/lib/cases";
+import { Ledger } from "./ledger";
 import { projectMail } from "./shell";
 import { Reviews } from "./reviews";
 
@@ -40,32 +40,7 @@ export function Home() {
               </a>
             </div>
           </div>
-          <ol className="ledger panel" aria-label="Six projects, each with a case study">
-            {cases.map((c, i) => (
-              <li key={c.slug}>
-                <Link
-                  to="/work/$slug"
-                  params={{ slug: c.slug }}
-                  className="ledger__link"
-                  style={{ "--row": i } as CSSProperties}
-                >
-                  <img
-                    className="ledger__thumb"
-                    src={`/work/${c.slug}/1.jpg`}
-                    width={c.size[0]}
-                    height={c.size[1]}
-                    alt=""
-                    loading={i > 2 ? "lazy" : undefined}
-                    decoding="async"
-                  />
-                  <span className="ledger__title">{c.title}</span>
-                  <span className="ledger__lede">{c.lede}</span>
-                  <span className="ledger__field">{c.field}</span>
-                  <span className="ledger__year measured">{c.year}</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
+          <Ledger />
           <dl className="figures__row rise" style={{ "--i": 6 } as CSSProperties} aria-label="In numbers">
             {figures.map(([n, label]) => (
               <div key={label}>
