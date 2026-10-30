@@ -10,7 +10,8 @@ export type Case = Project & {
   blurb: string;
   /* Pixel size of the screenshots in /work/<slug>/1-4.jpg. */
   size: [number, number];
-  /* Pixel size of /work/<slug>/demo.mp4 when there is a walkthrough. */
+  /* Pixel size of /work/<slug>/demo.mp4 when there is a walkthrough; the
+   * home list then plays /work/<slug>/preview.mp4, a 10 s, 320 px cut of it. */
   video?: [number, number] | undefined;
   brief?: string | undefined;
   built?: string | undefined;
@@ -24,6 +25,7 @@ const extra: Record<string, Omit<Case, keyof Project>> = {
     lede: "A 3D showroom for a clothing label.",
     blurb: "A scroll-driven 3D showroom for a clothing label: five pieces turned in a plain grey void.",
     size: [1440, 900],
+    video: [1280, 800],
   },
   furlio: {
     field: "Furniture, editorial",
