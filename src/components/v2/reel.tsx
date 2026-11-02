@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-/* The project reel above the six projects: the best few seconds of each
- * walkthrough, looping (built by showcase/reel/make_reel.py). It plays only
+/* The project reel above the six projects: screenshots of each live site on
+ * their own backdrops, looping (built by showcase/reel/make_reel.py). It plays only
  * while on screen, has a visible Pause, and shows its poster without script
  * or under reduced motion. */
 export function Reel() {
@@ -40,7 +40,7 @@ export function Reel() {
         loop
         playsInline
         preload="metadata"
-        aria-label="A reel of Verto, ScamTrail, Furlio, ApplyReady, Clinq and Honatrix"
+        aria-label="Screens from Verto, ScamTrail, Furlio, ApplyReady, Clinq and Honatrix"
       />
       {!still && (
         <button type="button" className="btn btn--small reel__toggle" onClick={() => setHeld((h) => !h)}>

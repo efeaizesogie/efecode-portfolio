@@ -77,7 +77,10 @@ class Scene:
         shadow = shadow.filter(ImageFilter.GaussianBlur(34))
         canvas = Image.composite(Image.new("RGB", (W, H), (0, 0, 0)), self.back, shadow)
         canvas.paste(self.shot.resize((w, h), Image.LANCZOS), (x, y), rounded_mask(w, h, RADIUS))
-        return canvas
+        # A faint light edge, so a dark screen still reads against its dark backdrop.
+        edge = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(edge).rounded_rectangle((x, y, x + w - 1, y + h - 1), RADIUS, outline=(255, 255, 255, 34), width=1)
+        return Image.alpha_composite(canvas.convert("RGBA"), edge).convert("RGB")
 
 
 def main():
