@@ -5,6 +5,7 @@
 import type { CSSProperties } from "react";
 import { roles } from "@/lib/cases";
 import { Ledger } from "./ledger";
+import { Reel } from "./reel";
 import { projectMail } from "./shell";
 import { Reviews } from "./reviews";
 
@@ -39,6 +40,9 @@ export function Home() {
                 Start a project
               </a>
             </div>
+          </div>
+          <div className="rise" style={{ "--i": 3 } as CSSProperties}>
+            <Reel />
           </div>
           <Ledger />
           <dl className="figures__row rise" style={{ "--i": 6 } as CSSProperties} aria-label="In numbers">
