@@ -4,12 +4,11 @@ import { cases } from "@/lib/cases";
 
 /* The six projects, each row opening its case study. A project with a
  * walkthrough shows a 10 s preview of it instead of a still: the previews
- * play only while the list is on screen, stop with "Pause previews", and
- * stay on their first screen under reduced motion or without script. */
+ * play only while the list is on screen, and stay on their first screen
+ * under reduced motion or without script. */
 export function Ledger() {
   const list = useRef<HTMLOListElement>(null);
   const [seen, setSeen] = useState(false);
-  const [held, setHeld] = useState(false);
   const [still, setStill] = useState(true);
 
   useEffect(() => {
@@ -22,9 +21,9 @@ export function Ledger() {
   }, []);
 
   useEffect(() => {
-    const run = seen && !held && !still;
+    const run = seen && !still;
     list.current?.querySelectorAll("video").forEach((v) => (run ? v.play().catch(() => {}) : v.pause()));
-  }, [seen, held, still]);
+  }, [seen, still]);
 
   return (
     <>
@@ -69,13 +68,6 @@ export function Ledger() {
           </li>
         ))}
       </ol>
-      {!still && (
-        <div className="ledger__tools">
-          <button type="button" className="btn btn--small btn--quiet" onClick={() => setHeld((h) => !h)}>
-            {held ? "Play previews" : "Pause previews"}
-          </button>
-        </div>
-      )}
     </>
   );
 }
